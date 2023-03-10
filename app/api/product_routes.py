@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session, request
 from app.models import Product
-# from app.forms import ProductForm #Todo: Create a ProductForm
+from app.forms import ProductForm 
 
 
 product_routes = Blueprint('product', __name__)
