@@ -1,22 +1,21 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import Product, db
-from app.forms import ProductForm
+from app.models import Product, db, Image
+from app.forms import ProductForm, ImageForm
 from flask_login import current_user
 
 
 product_routes = Blueprint('product', __name__)
 
-# Get all products
+# Get all products /api/product/
 @product_routes.route('/')
 def get_products():
     products = Product.query.all()
     return {'products': [product.to_dict() for product in products]}
 
-# Create a product
+# Create a product /api/product/
 @product_routes.route('/', methods=['POST'])
 def create_product():
-    # get seller_id from session
-    # seller_id = current_user
+    
     form = ProductForm()
     if current_user.is_authenticated:
         user = current_user.to_dict()
@@ -37,14 +36,14 @@ def create_product():
         return {'errors': form.errors}, 401
     return {'errors': 'Unauthorized'}, 403
 
-# Update a product
+# Update a product /api/product/:id
 @product_routes.route('/<int:id>', methods=['PUT'])
 def update_product(id):
     form = ProductForm()
     if current_user.is_authenticated:
         user = current_user.to_dict()
-        product = Product.query.get(id)
-        
+        seller_id = user['id']
+        product = Product.query.get(id)      
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
             product.name = form.data['name']
@@ -53,19 +52,19 @@ def update_product(id):
             product.price = form.data['price']
             product.quantity = form.data['quantity']
             product.images = form.data['images']
-            product.seller_id = form.data['seller_id']
+            product.seller_id = seller_id
             db.session.commit()
             return product.to_dict()
         return {'errors': form.errors}, 401
     return {'errors': 'Unauthorized'}, 403
 
-# Get a single product
+# Get a single product /api/product/:id
 @product_routes.route('/<int:id>')
 def get_product(id):
     product = Product.query.get(id)
     return product.to_dict()
 
-# Delete a product
+# Delete a product /api/product/:id
 @product_routes.route('/<int:id>', methods=['DELETE'])
 def delete_product(id):
     if current_user.is_authenticated:
@@ -77,3 +76,19 @@ def delete_product(id):
     return {'errors': 'Unauthorized'}, 403
 
 
+# create a product image /api/product/:id/image
+@product_routes.route('/<int:id>/image', methods=['POST'])
+def create_product_image(id):
+    form = ImageForm()
+    if current_user.is_authenticated:
+        user = current_user.to_dict()
+        product = Product.query.get(id)
+        image = Image(
+            image_url=form.data['image_url'],
+            preview=form.data['preview'],
+            product_id=product.id
+        )
+        db.session.add(image)
+        db.session.commit()
+        return image.to_dict()
+    return {'errors': 'Unauthorized'}, 403
