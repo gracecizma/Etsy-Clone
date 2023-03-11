@@ -1,5 +1,6 @@
 from .db import db, environment, SCHEMA
 
+
 class Product(db.Model):
     __tablename__ = 'products'
 
@@ -14,10 +15,11 @@ class Product(db.Model):
     quantity = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
+    seller_id = db.Column(
+        db.Integer, db.ForeignKey('users.id'), nullable=False)
+
     images = db.relationship('Image', back_populates='product')
-    seller_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-
-
+    shopping_cart = db.relationship("ShoppingCart", back_populates='products')
 
     def to_dict(self):
         return {
