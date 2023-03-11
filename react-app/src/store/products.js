@@ -16,11 +16,11 @@ const removeProduct = () => ({
   type: REMOVE_PRODUCT,
 });
 
-const initialState = { allProducts: null, singleProduct: null };
+
 
 // Get all products
 export const getAllProducts = () => async (dispatch) => {
-  const response = await fetch("/api/products/");
+  const response = await fetch("/api/product/");
 
   if (response.ok) {
     const data = await response.json();
@@ -31,8 +31,7 @@ export const getAllProducts = () => async (dispatch) => {
 
 // Get a single product
 export const getSingleProduct = (productId) => async (dispatch) => {
-  const response = await fetch(`/api/products/${productId}`);
-
+  const response = await fetch(`/api/product/${productId}`);
   if (response.ok) {
     const data = await response.json();
     dispatch(setSingleProduct(data));
@@ -43,7 +42,7 @@ export const getSingleProduct = (productId) => async (dispatch) => {
 // Create a new product
 export const createProduct = (product) => async (dispatch) => {
   const { name, description, price, imageUrl, userId } = product;
-  const response = await fetch("/api/products/", {
+  const response = await fetch("/api/product/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -57,7 +56,7 @@ export const createProduct = (product) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-    const imageResponse = await fetch(`/api/products/${data.id}/images`, {
+    const imageResponse = await fetch(`/api/product/${data.id}/images`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -77,7 +76,7 @@ export const createProduct = (product) => async (dispatch) => {
 // Edit a product
 export const editProduct = (product) => async (dispatch) => {
   const { id, name, description, price, imageUrl, userId } = product;
-  const response = await fetch(`/api/products/${id}`, {
+  const response = await fetch(`/api/product/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -91,7 +90,7 @@ export const editProduct = (product) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-    const imageResponse = await fetch(`/api/products/${data.id}/images`, {
+    const imageResponse = await fetch(`/api/product/${data.id}/images`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -110,7 +109,7 @@ export const editProduct = (product) => async (dispatch) => {
 
 // Delete a product
 export const deleteProduct = (productId) => async (dispatch) => {
-  const response = await fetch(`/api/products/${productId}`, {
+  const response = await fetch(`/api/product/${productId}`, {
     method: "DELETE",
   });
   if (response.ok) {
@@ -118,6 +117,8 @@ export const deleteProduct = (productId) => async (dispatch) => {
     return response;
   }
 }
+
+const initialState = { allProducts: {}, singleProduct: {} };
 
 export default function productReducer(state = initialState, action) {
   switch (action.type) {
