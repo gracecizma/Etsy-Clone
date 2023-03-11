@@ -9,5 +9,3 @@ class ProductForm(FlaskForm):
     category = StringField('category', validators=[DataRequired()])
     price = StringField('price', validators=[DataRequired()])
     quantity = StringField('quantity', validators=[DataRequired()])
-    images = StringField('images', validators=[DataRequired()])
-    seller_id = StringField('seller_id', validators=[DataRequired()])
