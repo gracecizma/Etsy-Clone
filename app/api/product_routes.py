@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import Product, db, Image
+from app.models import Product, db, Image, User
 from app.forms import ProductForm, ImageForm
 from flask_login import current_user
 
@@ -62,7 +62,10 @@ def update_product(id):
 @product_routes.route('/<int:id>')
 def get_product(id):
     product = Product.query.get(id)
-    return product.to_dict()
+    seller = User.query.get(product.seller_id)
+    product = product.to_dict()
+    product['seller'] = seller.to_dict()
+    return product
 
 # Delete a product /api/product/:id
 @product_routes.route('/<int:id>', methods=['DELETE'])

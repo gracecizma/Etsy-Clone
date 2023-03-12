@@ -22,18 +22,23 @@ const AllProducts = () => {
   return (
     <div className="all-products-container">
       {allProducts[0].map((product) => (
+        <Link to={`/products/${product.id}`}>
         <div key={product.id} className="product-card">
-          {/* <Link to={`/product/${product.id}`}>
-                <img src={product.imageUrl} alt={product.name} />
-            </Link> */}
+          
+               {product.images.length > 0 ? (
+                <img style={{width: "200px", height: "150px"}} src={product.images[0].url} alt={product.name}  />
+              ) : (
+                <img style={{width: "200px", height: "150px"}} src="https://i.imgur.com/6XK9X4u.png" alt={product.name} />
+              )}
+           
           <div className="product-info">
-            <Link to={`/product/${product.id}`}>
               <h3>{product.name}</h3>
-            </Link>
-            <p>{product.description}</p>
+              <p>{product.description}</p>
             <p>${product.price}</p>
+            
           </div>
         </div>
+        </Link>
       ))}
     </div>
   );
