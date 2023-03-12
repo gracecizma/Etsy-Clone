@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
+import AllProducts from "./components/Products/AllProducts";
+import SingleProduct from "./components/Products/SingleProduct";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 
@@ -23,6 +25,12 @@ function App() {
           </Route>
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route path="/products">
+            <AllProducts />
+          </Route>
+          <Route path="/products/:id">
+            <SingleProduct />
           </Route>
         </Switch>
       )}
