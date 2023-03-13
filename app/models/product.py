@@ -9,7 +9,6 @@ class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(40), nullable=False, unique=True)
     description = db.Column(db.String(255), nullable=False, unique=True)
-    category = db.Column(db.String(255), nullable=False)
     price = db.Column(db.Float(), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
@@ -24,7 +23,6 @@ class Product(db.Model):
             'id': self.id,
             'name': self.name,
             'description': self.description,
-            'category': self.category,
             'price': self.price,
             'quantity': self.quantity,
             'created_at': self.created_at,

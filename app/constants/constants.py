@@ -13,3 +13,14 @@ images = {
     "demo_image_9": "https://images.pexels.com/photos/205961/pexels-photo-205961.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     "demo_image_10": "https://images.pexels.com/photos/341523/pexels-photo-341523.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
 }
+
+catagories = {
+    "demo_catagory_1": "Food",
+    "demo_catagory_2": "Paints",
+    "demo_catagory_3": "Clothes",
+    "demo_catagory_4": "Shoes",
+    "demo_catagory_5": "Electronics",
+    "demo_catagory_6": "Furniture",
+    "demo_catagory_7": "Books",
+    "demo_catagory_8": "Toys",
+}
