@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA
 
 class Image(db.Model):
-    __tablename__ = 'images'
+    __tablename__ = "images"
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
