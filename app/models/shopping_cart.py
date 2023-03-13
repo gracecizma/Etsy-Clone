@@ -13,7 +13,7 @@ class ShoppingCart(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(
         "users.id"), nullable=False)
 
-    products = db.relationship("Product", back_populates="shopping_carts")
+    product = db.relationship("Product", back_populates="shopping_carts")
     user = db.relationship("User", back_populates="shopping_carts")
 
     def to_dict(self):
