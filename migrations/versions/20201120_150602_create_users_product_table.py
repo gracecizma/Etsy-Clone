@@ -31,18 +31,8 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
-    
-    # Images table
-    op.create_table('images',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('url', sa.String(length=255), nullable=False),
-    sa.Column('preview', sa.Boolean(), nullable=False),
-    sa.Column('product_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['product_id'], ['products.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
 
-    # Products table
+     # Products table
     op.create_table('products',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=40), nullable=False),
@@ -55,6 +45,18 @@ def upgrade():
     sa.ForeignKeyConstraint(['seller_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    
+    # Images table
+    op.create_table('images',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('url', sa.String(length=255), nullable=False),
+    sa.Column('preview', sa.Boolean(), nullable=False),
+    sa.Column('product_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['product_id'], ['products.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+
+   
 
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
