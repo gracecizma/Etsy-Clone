@@ -40,36 +40,52 @@ export const getSingleProduct = (productId) => async (dispatch) => {
 };
 
 // Create a new product
-export const createProduct = (product) => async (dispatch) => {
-  const { name, description, price, imageUrl, userId } = product;
+export const createProduct = (product, images) => async (dispatch) => {
+  const { title, description, price, quantity, userId } = product;
   const response = await fetch("/api/product/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name,
+      name: title,
       description,
       price,
+      quantity,
       userId,
     }),
   });
+
+
+  
+  if (response.ok) {
+    for (let i = 0; i < images.length; i++) {
+      const data = await response.json();
+      const imageResponse = await fetch(`/api/product/${data.id}/images`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          url: images[i],
+          preview: true,
+          productId: data.id,
+        }),
+      });
+      if (!imageResponse.ok) {
+        return `something went wrong when creating image number ${i}`
+      }
+    }
+  } else {
+    return 'something went wrong when creating product'
+  }
+
   if (response.ok) {
     const data = await response.json();
-    const imageResponse = await fetch(`/api/product/${data.id}/images`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        url: imageUrl,
-        preview: true,
-        productId: data.id,
-      }),
-    });
-
     dispatch(setSingleProduct(data));
     return data;
+  } else {
+    return 'something went wrong when creating images'
   }
 };
 
