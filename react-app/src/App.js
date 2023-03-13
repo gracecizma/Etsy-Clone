@@ -26,7 +26,7 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/products">
+          <Route exact="true" path="/products">
             <AllProducts />
           </Route>
           <Route path="/products/:id">

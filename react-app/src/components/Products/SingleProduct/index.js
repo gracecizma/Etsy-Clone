@@ -14,17 +14,24 @@ const SingleProduct = () => {
     }, [dispatch, id]);
 
 
-    if (!product) {
+    if (product === undefined) {
         return null;
     }
     
     return (
         <div className="single-product-container">
-        {/* <img src={product.imageUrl} alt={product.name} /> */}
+             {product.images?.length > 0 ? (
+                product.images.map((image) => (
+                    image && <img style={{width: "200px", height: "150px"}} src={image.url} alt={product.name}  />
+                ))
+              ) : (
+                <img style={{width: "200px", height: "150px"}} src="https://i.imgur.com/6XK9X4u.png" alt={product.name} />
+              )}
         <div className="product-info">
-            <h3>{product.name}</h3>
+         <h3>{product.name}</h3>
             <p>{product.description}</p>
             <p>${product.price}</p>
+            <p>Seller: {product.seller?.username}</p>
         </div>
         </div>
     );
