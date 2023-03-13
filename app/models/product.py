@@ -16,7 +16,7 @@ class Product(db.Model):
     updated_at = db.Column(db.DateTime, nullable=False)
     seller_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     images = db.relationship('Image', back_populates='product')
-    shopping_carts = db.relationship("ShoppingCart", back_populates='products')
+    shopping_carts = db.relationship("ShoppingCart", back_populates='product')
 
     def to_dict(self):
         return {
