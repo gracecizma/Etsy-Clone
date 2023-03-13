@@ -13,9 +13,18 @@ def get_cart(id):
 
 
 # POST Add a listing to a cart
+@shopping_routes.route('/')
+def add_to_cart():
+    pass
 
 
 # PUT Update a cart listing purchase quantity
+@shopping_routes.route('/')
+def update_quantity():
+    pass
 
 
 # DELETE Remove a listing from a cart
+@shopping_routes.route('/')
+def delete_from_cart():
+    pass
