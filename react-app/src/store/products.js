@@ -55,8 +55,6 @@ export const createProduct = (product, images) => async (dispatch) => {
       userId,
     }),
   });
-
-
   
   if (response.ok) {
     for (let i = 0; i < images.length; i++) {
