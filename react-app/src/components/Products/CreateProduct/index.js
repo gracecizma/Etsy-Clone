@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createProduct } from "../../../store/products";
+import { useSelector } from "react-redux";
 import "./CreateProduct.css";
 
 const CreateProduct = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const user = useSelector(state => state.session.user)
+  const userId = user.id;
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -15,11 +18,16 @@ const CreateProduct = () => {
   const [errors, setErrors] = useState({});
   const [quantity, setQuantity] = useState("");
 
+  if (!user) {
+    history.push("/login")
+  }
+
   let product = {
     title,
     description,
     price,
     quantity,
+    userId
   };
 
   const handleSubmit = async (e) => {

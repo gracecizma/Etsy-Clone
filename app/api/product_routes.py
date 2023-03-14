@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, session, request
 from app.models import Product, db, Image, User
 from app.forms import ProductForm, ImageForm
 from flask_login import current_user
+from datetime import datetime
 
 
 product_routes = Blueprint('product', __name__)
@@ -25,10 +26,11 @@ def create_product():
             product = Product(
                 name=form.data['name'],
                 description=form.data['description'],
-                category=form.data['category'],
                 price=form.data['price'],
                 quantity=form.data['quantity'],
-                seller_id=seller_id
+                seller_id=seller_id,
+                created_at=datetime.utcnow(),
+                updated_at=datetime.utcnow(),
             )
             db.session.add(product)
             db.session.commit()
@@ -53,6 +55,7 @@ def update_product(id):
             product.quantity = form.data['quantity']
             product.images = form.data['images']
             product.seller_id = seller_id
+            product.updated_at = datetime.utcnow()
             db.session.commit()
             return product.to_dict()
         return {'errors': form.errors}, 401
@@ -87,7 +90,7 @@ def create_product_image(id):
         user = current_user.to_dict()
         product = Product.query.get(id)
         image = Image(
-            image_url=form.data['image_url'],
+            url=form.data['url'],
             preview=form.data['preview'],
             product_id=product.id
         )

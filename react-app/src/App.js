@@ -8,6 +8,7 @@ import SingleProduct from "./components/Products/SingleProduct";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import CreateProduct from "./components/Products/CreateProduct";
+import UpdateProduct from "./components/Products/UpdateProduct";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,11 +28,14 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route exact="true" path="/products">
+          <Route exact={true} path="/products">
             <AllProducts />
           </Route>
           <Route path="/products/new">
             <CreateProduct />
+          </Route>
+          <Route path="/products/:id/edit">
+            <UpdateProduct />
           </Route>
           <Route path="/products/:id">
             <SingleProduct />
