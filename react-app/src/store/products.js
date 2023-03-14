@@ -116,37 +116,37 @@ export const editProduct = (product, images) => async (dispatch) => {
 
   const productData = await response.json();
 
-  let imageResponse;
+  // let imageResponse;
 
-  if (response.ok) {
-    for (let i = 0; i < images.length; i++) {
-      if (images[i] === "") continue;
-      const imageUrl = images[i].url;
-      const imageByProduct = await fetch(`/api/product/${productData.id}/image`);
-      const imageByProductData = await imageByProduct.json();
-      const imageId = imageByProductData.images[0].id;
-      imageResponse = await fetch(`/api/product/${productData.id}/image/${imageId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: imageId,
-          url: imageUrl,
-          preview: true,
-          productId: productData.id,
-        }),
+  // if (response.ok) {
+  //   for (let i = 0; i < images.length; i++) {
+  //     if (images[i] === "") continue;
+  //     const imageUrl = images[i].url;
+  //     const imageByProduct = await fetch(`/api/product/${productData.id}/image`);
+  //     const imageByProductData = await imageByProduct.json();
+  //     const imageId = imageByProductData.images[0].id;
+  //     imageResponse = await fetch(`/api/product/${productData.id}/image/${imageId}`, {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         id: imageId,
+  //         url: imageUrl,
+  //         preview: true,
+  //         productId: productData.id,
+  //       }),
 
-      });
-      if (!imageResponse.ok) {
-        return `something went wrong when creating image number ${i}`;
-      }
-    }
-  } else {
-    return "something went wrong when creating product";
-  }
+  //     });
+  //     if (!imageResponse.ok) {
+  //       return `something went wrong when creating image number ${i}`;
+  //     }
+  //   }
+  // } else {
+  //   return "something went wrong when creating product";
+  // }
 
-  if (imageResponse.ok) {
+  if (productData.ok) {
     const final = await fetch(`/api/product/${productData.id}`);
     if (final.ok) {
       const finalResponse = await final.json();
@@ -154,7 +154,7 @@ export const editProduct = (product, images) => async (dispatch) => {
       return finalResponse;
     }
   } else {
-    return "something went wrong when creating images";
+    return "something went wrong when navigating to product page";
   }
 };
 

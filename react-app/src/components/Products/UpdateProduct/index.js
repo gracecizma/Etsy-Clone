@@ -123,7 +123,7 @@ const UpdateProduct = () => {
                 <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
                 {errors.quantity && <div className="error">{errors.quantity}</div>}
             </div>
-            <div className="create-product-images">
+            {/* <div className="create-product-images">
                 <label>Images</label>
                 {images.map((image,idx) => (
                 <div key={idx} className="create-product-image">
@@ -137,7 +137,7 @@ const UpdateProduct = () => {
                 Add Image
                 </button>
                 {errors.images && <div className="error">{errors.images}</div>}
-            </div>
+            </div> */}
             <button type="submit">Edit Product</button>
             </div>
         </form>
