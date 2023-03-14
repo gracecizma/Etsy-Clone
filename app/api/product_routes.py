@@ -48,16 +48,13 @@ def update_product(id):
         product = Product.query.get(id)      
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
-            product = Product(
-                id = form.data['id'],
-                name = form.data['name'],
-                description = form.data['description'],
-                price = form.data['price'],
-                quantity = form.data['quantity'],
-                seller_id = seller_id,
-                updated_at = datetime.utcnow(),
-            )
-            db.session.add(product)
+            product.name = form.data['name']
+            product.description = form.data['description']
+            product.price = form.data['price']
+            product.quantity = form.data['quantity']
+            product.seller_id = seller_id
+            product.updated_at = datetime.utcnow()
+            db.session.add(product)   
             db.session.commit()
             return product.to_dict()
         return {'errors': form.errors}, 401
@@ -96,6 +93,27 @@ def create_product_image(id):
             preview=form.data['preview'],
             product_id=product.id
         )
+        db.session.add(image)
+        db.session.commit()
+        return image.to_dict()
+    return {'errors': 'Unauthorized'}, 403
+
+# get images by product id /api/product/:id/image
+@product_routes.route('/<int:id>/image')
+def get_product_images(id):
+    product = Product.query.get(id)
+    images = Image.query.filter_by(product_id=product.id).all()
+    return {'images': [image.to_dict() for image in images]}
+
+# edit product image /api/product/:id/image/:image_id
+@product_routes.route('/<int:id>/image/<int:image_id>', methods=['PUT'])
+def edit_product_image(id, image_id):
+    form = ImageForm()
+    if current_user.is_authenticated:
+        user = current_user.to_dict()
+        image = Image.query.get(image_id)
+        image.url = form.data['url']
+        image.preview = form.data['preview']
         db.session.add(image)
         db.session.commit()
         return image.to_dict()

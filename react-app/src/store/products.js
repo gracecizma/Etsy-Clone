@@ -96,8 +96,7 @@ export const createProduct = (product, images) => async (dispatch) => {
 
 // Edit a product
 export const editProduct = (product, images) => async (dispatch) => {
-  const { id, title, description, price, quantity, userId } = product;
-
+  const { id, name, description, price, quantity, userId } = product;
 
   const response = await fetch(`/api/product/${id}`, {
     method: "PUT",
@@ -106,7 +105,7 @@ export const editProduct = (product, images) => async (dispatch) => {
     },
     body: JSON.stringify({
       id,
-      name: title,
+      name,
       description,
       price,
       quantity,
@@ -114,7 +113,6 @@ export const editProduct = (product, images) => async (dispatch) => {
     }),
   });
   
-  console.log('product thunk', response)
 
   const productData = await response.json();
 
@@ -123,14 +121,18 @@ export const editProduct = (product, images) => async (dispatch) => {
   if (response.ok) {
     for (let i = 0; i < images.length; i++) {
       if (images[i] === "") continue;
-      imageResponse = await fetch(`/api/product/${productData.id}/image`, {
-        method: "POST",
+      const imageUrl = images[i].url;
+      const imageByProduct = await fetch(`/api/product/${productData.id}/image`);
+      const imageByProductData = await imageByProduct.json();
+      const imageId = imageByProductData.images[0].id;
+      imageResponse = await fetch(`/api/product/${productData.id}/image/${imageId}`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id: imageResponse.id,
-          url: images[i],
+          id: imageId,
+          url: imageUrl,
           preview: true,
           productId: productData.id,
         }),
