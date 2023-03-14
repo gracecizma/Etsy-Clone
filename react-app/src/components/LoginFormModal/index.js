@@ -13,10 +13,9 @@ function LoginFormModal() {
   const { closeModal } = useModal();
 
   const demoHandler = () => {
-    dispatch(
-      sessionActions.login({ email: "demo@aa.io", password: "password" })
-    ).then(closeModal);
+    dispatch(sessionActions.login("demo@aa.io", "password")).then(closeModal);
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
