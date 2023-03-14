@@ -153,3 +153,16 @@ a:hover {
   text-decoration: none;
   color: rgb(192, 87, 0);
 }
+
+.logout-button {
+  color: rgb(0, 0, 0);
+  background: none;
+  margin: 5px 5px;
+  width: 80px;
+  border-radius: 10px;
+}
+
+.logout-button:hover {
+  cursor: pointer;
+  background-color: rgb(184, 225, 245);
+}
