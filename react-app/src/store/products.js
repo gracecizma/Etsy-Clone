@@ -96,14 +96,16 @@ export const createProduct = (product, images) => async (dispatch) => {
 
 // Edit a product
 export const editProduct = (product, images) => async (dispatch) => {
-  const { title, description, price, quantity, userId } = product;
+  const { id, title, description, price, quantity, userId } = product;
 
-  const response = await fetch("/api/product/", {
-    method: "POST",
+
+  const response = await fetch(`/api/product/${id}`, {
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
+      id,
       name: title,
       description,
       price,
@@ -111,13 +113,15 @@ export const editProduct = (product, images) => async (dispatch) => {
       userId
     }),
   });
+  
+  console.log('product thunk', response)
+
   const productData = await response.json();
 
   let imageResponse;
 
   if (response.ok) {
     for (let i = 0; i < images.length; i++) {
-
       if (images[i] === "") continue;
       imageResponse = await fetch(`/api/product/${productData.id}/image`, {
         method: "POST",
@@ -125,6 +129,7 @@ export const editProduct = (product, images) => async (dispatch) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          id: imageResponse.id,
           url: images[i],
           preview: true,
           productId: productData.id,

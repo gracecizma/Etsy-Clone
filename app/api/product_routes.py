@@ -48,14 +48,16 @@ def update_product(id):
         product = Product.query.get(id)      
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
-            product.name = form.data['name']
-            product.description = form.data['description']
-            product.category = form.data['category']
-            product.price = form.data['price']
-            product.quantity = form.data['quantity']
-            product.images = form.data['images']
-            product.seller_id = seller_id
-            product.updated_at = datetime.utcnow()
+            product = Product(
+                id = form.data['id'],
+                name = form.data['name'],
+                description = form.data['description'],
+                price = form.data['price'],
+                quantity = form.data['quantity'],
+                seller_id = seller_id,
+                updated_at = datetime.utcnow(),
+            )
+            db.session.add(product)
             db.session.commit()
             return product.to_dict()
         return {'errors': form.errors}, 401

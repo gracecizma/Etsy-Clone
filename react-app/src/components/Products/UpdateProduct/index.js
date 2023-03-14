@@ -23,6 +23,9 @@ const UpdateProduct = () => {
         history.push("/login");
     }
 
+
+
+
     useEffect(() => {
         const updateFields = async () => {
             const singleProduct = await dispatch(getSingleProduct(id));
@@ -40,6 +43,7 @@ const UpdateProduct = () => {
         e.preventDefault();
 
         let productObj = {
+            id,
             name: title,
             description,
             price,
