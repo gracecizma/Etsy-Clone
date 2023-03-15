@@ -38,7 +38,6 @@ def leave_Review():
         form["csrf_token"].data = request.cookies["csrf_token"]
         if form.validate_on_submit():
             review = Review(
-                id=form.id.data,
                 user_id=form.user_id.data,
                 product_id=form.product_id.data,
                 comment=form.comment.data,
