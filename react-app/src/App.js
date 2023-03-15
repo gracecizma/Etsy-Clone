@@ -11,6 +11,8 @@ import CreateProduct from "./components/Products/CreateProduct";
 import UpdateProduct from "./components/Products/UpdateProduct";
 import Profile from "./components/User/Profile";
 import SingleReviewBlock from "./components/reviews/SingleReviewBlock"
+import SearchPage from "./components/SearchPage";
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -23,13 +25,16 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route path="/login" >
+          <Route path="/login">
             <LoginFormPage />
           </Route>
           <Route path="/signup">
             <SignupFormPage />
           </Route>
           <Route exact={true} path="/products">
+            <AllProducts />
+          </Route>
+          <Route exact={true} path="/">
             <AllProducts />
           </Route>
           <Route path="/products/new">
@@ -41,11 +46,16 @@ function App() {
           <Route path="/products/:id">
             <SingleProduct />
           </Route>
+
           <Route path="/user/:id" >
             <Profile />
           </Route>
           <Route path='/reviews_Test_Route'>
             <SingleReviewBlock />
+
+          <Route path="/search/:searchParams">
+            <SearchPage />
+
           </Route>
         </Switch>
       )}
