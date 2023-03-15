@@ -10,7 +10,7 @@ import Navigation from "./components/Navigation";
 import CreateProduct from "./components/Products/CreateProduct";
 import UpdateProduct from "./components/Products/UpdateProduct";
 import Profile from "./components/User/Profile";
-import SingleReviewBlock from "./components/reviews/SingleReviewBlock"
+import SingleReviewBlock from "./components/reviews/SingleReviewBlock";
 import SearchPage from "./components/SearchPage";
 
 function App() {
@@ -47,15 +47,14 @@ function App() {
             <SingleProduct />
           </Route>
 
-          <Route path="/user/:id" >
+          <Route path="/user/:id">
             <Profile />
           </Route>
-          <Route path='/reviews_Test_Route'>
+          <Route path="/reviews_Test_Route">
             <SingleReviewBlock />
-
+          </Route>
           <Route path="/search/:searchParams">
             <SearchPage />
-
           </Route>
         </Switch>
       )}
