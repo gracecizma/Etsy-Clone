@@ -65,12 +65,12 @@ def Update_Review(id):
         if form.validate_on_submit():
             review_to_edit = Review.query.get(id)
 
-            review_to_edit.id = (form.data["id"],)
-            review_to_edit.user_id = (form.data["user_id"],)
-            review_to_edit.product_id = (form.data["product_id"],)
-            review_to_edit.comment = (form.data["comment"],)
-            review_to_edit.stars = (form.data["stars"],)
-            review_to_edit.updated_at = (form.data["updated_at"],)
+            review_to_edit.id = form.data["id"]
+            review_to_edit.user_id = user.id
+            review_to_edit.product_id = form.data["product_id"]
+            review_to_edit.comment = form.data["comment"]
+            review_to_edit.stars = form.data["stars"]
+            review_to_edit.updated_at = form.data["updated_at"]
 
             db.session.add(review_to_edit)
             db.session.commit()
