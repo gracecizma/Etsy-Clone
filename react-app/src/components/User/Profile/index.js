@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { deleteProduct, getProductsByUser } from "../../../store/products";
@@ -14,6 +14,7 @@ const Profile = () => {
   const loggedInUser = useSelector((state) => state.session.user);
   const allUsers = useSelector((state) => state.session.users);
   const [showModal, setShowModal] = useState(false);
+  const divRef = useRef(null);
   let user;
   const history = useHistory();
 
@@ -57,7 +58,7 @@ const Profile = () => {
 
   const products = userProducts;
 
-  if (products[0][0].images[0].length === 0) {
+  if (products[0][0]?.images[0]?.length === 0) {
     return null;
   }
 
