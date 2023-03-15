@@ -9,7 +9,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import CreateProduct from "./components/Products/CreateProduct";
 import UpdateProduct from "./components/Products/UpdateProduct";
-
+import SingleReviewBlock from "./components/reviews/SingleReviewBlock"
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -39,6 +39,10 @@ function App() {
           </Route>
           <Route path="/products/:id">
             <SingleProduct />
+          </Route>
+
+          <Route path='/reviews_Test_Route'>
+            <SingleReviewBlock />
           </Route>
         </Switch>
       )}
