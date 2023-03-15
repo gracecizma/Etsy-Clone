@@ -4,11 +4,20 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
-from .models import db, User, Image, Product
+<<<<<<< HEAD
+from .models import db, User, Image, Product, Order, ShoppingCart
+=======
+from .models import db, User, Image, Product,Review
+>>>>>>> bdb463d6381fb91ad0212a4732d925798844073c
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.product_routes import product_routes
 from .api.shopping_cart_routes import shopping_routes
+<<<<<<< HEAD
+from .api.order_routes import order_routes
+=======
+from .api.review_routes import review_routes
+>>>>>>> bdb463d6381fb91ad0212a4732d925798844073c
 from .seeds import seed_commands
 from .config import Config
 
@@ -32,7 +41,13 @@ app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(product_routes, url_prefix='/api/product')
+<<<<<<< HEAD
+app.register_blueprint(shopping_routes, url_prefix='/api/cart')
+app.register_blueprint(order_routes, url_prefix='/api/orders')
+=======
 app.register_blueprint(shopping_routes, url_prefix='/api/carts')
+app.register_blueprint(review_routes, url_prefix='/api/reviews')
+>>>>>>> bdb463d6381fb91ad0212a4732d925798844073c
 db.init_app(app)
 Migrate(app, db)
 

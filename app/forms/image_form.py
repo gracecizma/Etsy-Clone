@@ -4,5 +4,6 @@ from wtforms.validators import DataRequired, Email, ValidationError
 from app.models import Image
 
 class ImageForm(FlaskForm):
-    image_url = StringField('image_url', validators=[DataRequired()])
+    id = StringField('id')
+    url = StringField('url', validators=[DataRequired()])
     preview = BooleanField('preview', validators=[DataRequired()])
