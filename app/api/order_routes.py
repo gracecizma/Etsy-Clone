@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify, session, redirect, url_for
 from app.models import Order, ShoppingCart, User
-
 from flask_login import current_user
 
 order_routes = Blueprint('orders', __name__)

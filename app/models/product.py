@@ -14,9 +14,12 @@ class Product(db.Model):
     quantity = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
-    seller_id = db.Column(db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    seller_id = db.Column(db.ForeignKey(
+        add_prefix_for_prod('users.id')), nullable=False)
+
     images = db.relationship('Image', back_populates='product')
-    shopping_carts = db.relationship("ShoppingCart", back_populates='product')
+    shopping_carts = db.relationship("ShoppingCart", back_populates='products')
+    order = db.relationship("Order", back_populates='products')
 
     def to_dict(self):
         return {
