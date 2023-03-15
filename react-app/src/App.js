@@ -10,7 +10,7 @@ import Navigation from "./components/Navigation";
 import CreateProduct from "./components/Products/CreateProduct";
 import UpdateProduct from "./components/Products/UpdateProduct";
 import Profile from "./components/User/Profile";
-
+import SingleReviewBlock from "./components/reviews/SingleReviewBlock"
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -43,6 +43,9 @@ function App() {
           </Route>
           <Route path="/user/:id" >
             <Profile />
+          </Route>
+          <Route path='/reviews_Test_Route'>
+            <SingleReviewBlock />
           </Route>
         </Switch>
       )}

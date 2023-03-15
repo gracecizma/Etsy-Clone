@@ -6,11 +6,13 @@ from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
 from .models import db, User, Image, Product, Order, ShoppingCart
 from .models import db, User, Image, Product, Review
+from .models import db, User, Image, Product, Review, ShoppingCart
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.product_routes import product_routes
 from .api.shopping_cart_routes import shopping_routes
 from .api.order_routes import order_routes
+
 from .api.review_routes import review_routes
 from .seeds import seed_commands
 from .config import Config
