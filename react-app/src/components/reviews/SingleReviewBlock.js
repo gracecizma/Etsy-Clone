@@ -2,7 +2,9 @@ import { useSelector } from "react-redux"
 
 function SingleReviewBlock({review}){
  user = useSelector(state=>state.session.user)
- product = useSelector()
+//  product = useSelector(state=>state.product."currentProduct or something
+//  similar"
+//
     
     return (
          <div className="SingleReviewBlock"> 
