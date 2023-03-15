@@ -71,6 +71,7 @@ const UpdateProduct = () => {
         setErrors(newErrors);
         } else {
         const data = await dispatch(editProduct(productObj, images));
+        console.log(data);
         history.push(`/products/${data.id}`);
         }
     };

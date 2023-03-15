@@ -113,8 +113,11 @@ export const editProduct = (product, images) => async (dispatch) => {
     }),
   });
   
-
+  if (response.ok) {
   const productData = await response.json();
+  dispatch(setSingleProduct(productData));
+  return productData;
+  }
 
   // let imageResponse;
 
@@ -145,17 +148,6 @@ export const editProduct = (product, images) => async (dispatch) => {
   // } else {
   //   return "something went wrong when creating product";
   // }
-
-  if (productData.ok) {
-    const final = await fetch(`/api/product/${productData.id}`);
-    if (final.ok) {
-      const finalResponse = await final.json();
-      dispatch(setSingleProduct(finalResponse));
-      return finalResponse;
-    }
-  } else {
-    return "something went wrong when navigating to product page";
-  }
 };
 
 // Delete a product
