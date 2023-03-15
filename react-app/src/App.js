@@ -9,6 +9,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import CreateProduct from "./components/Products/CreateProduct";
 import UpdateProduct from "./components/Products/UpdateProduct";
+import Profile from "./components/User/Profile";
 
 function App() {
   const dispatch = useDispatch();
@@ -39,6 +40,9 @@ function App() {
           </Route>
           <Route path="/products/:id">
             <SingleProduct />
+          </Route>
+          <Route path="/user/:id" >
+            <Profile />
           </Route>
         </Switch>
       )}
