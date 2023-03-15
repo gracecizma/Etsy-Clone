@@ -32,7 +32,11 @@ function Navigation({ isLoaded }) {
                     placeholder="Search for anything"
                     className="search-form-input"
                     onChange={(e) => setSearch(e.target.value)}
-                  ></input>
+                  />
+                  {/* <i
+                    onClick={(e) => setSearch(e.target.value)}
+                    className="fas fa-search surch fa-lg"
+                  ></i> */}
                 </form>
               </div>
             </div>

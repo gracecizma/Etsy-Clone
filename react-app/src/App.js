@@ -32,6 +32,9 @@ function App() {
           <Route exact={true} path="/products">
             <AllProducts />
           </Route>
+          <Route exact={true} path="/">
+            <AllProducts />
+          </Route>
           <Route path="/products/new">
             <CreateProduct />
           </Route>

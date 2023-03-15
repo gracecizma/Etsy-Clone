@@ -166,3 +166,19 @@ a:hover {
   cursor: pointer;
   background-color: rgb(184, 225, 245);
 }
+
+.surch {
+  display: flex;
+  position: relative;
+  right: 44px;
+  top: 3px;
+  height: 45px;
+  width: 45px;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.surch:hover {
+  background-color: rgb(215, 215, 215);
+}
