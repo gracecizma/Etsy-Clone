@@ -101,6 +101,7 @@ export default function cartReducer(state = initialState, action) {
       let editState = { ...state }
       editState.cart = { ...state.cart }
       editState.cart[action.payload.id].quantity = action.payload.quantity
+      return editState
     case REMOVE_FROM_CART:
       let deleteState = { ...state }
       deleteState.cart = { ...state.cart }
