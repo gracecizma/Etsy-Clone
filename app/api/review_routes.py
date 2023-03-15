@@ -76,3 +76,15 @@ def Update_Review(id):
             return review_to_edit.to_dict()
         return {"errors": form.errors}, 401
     return {"errors": "Unauthorized"}, 403
+
+
+@review_routes.route("/<int:id>", methods=["DELETE"])
+def delete_review(id):
+    if current_user.is_authenticated:
+        user = current_user.to_dict()
+        review_to_delete = Review.query.get(id)
+        if user.id == review_to_delete.user_id:
+            db.session.delete(review_to_delete)
+            db.session.commit()
+        return {"message": "Review deleted"}
+    return {"errors": "Unauthorized"}, 403
