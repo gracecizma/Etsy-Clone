@@ -41,6 +41,12 @@ function App() {
           <Route path="/products/:id">
             <SingleProduct />
           </Route>
+          <Route path="/user/:id" >
+            <Profile />
+          </Route>
+          <Route path='/reviews_Test_Route'>
+            <SingleReviewBlock />
+          </Route>
         </Switch>
       )}
     </>
