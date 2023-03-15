@@ -13,8 +13,13 @@ const Profile = () => {
   const [userProducts, setUserProducts] = useState([]);
   const loggedInUser = useSelector((state) => state.session.user);
   const allUsers = useSelector((state) => state.session.users);
+  const [showModal, setShowModal] = useState(false);
   let user;
   const history = useHistory();
+
+  const handleShowModal = () => {
+    setShowModal(true);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,7 +30,19 @@ const Profile = () => {
         users && users[0] && users[0].find((user) => user.id === parseInt(id));
     };
     fetchData();
+    function handleCloseModal(event) {
+        if (divRef.current && !divRef.current.contains(event.target)) {
+          setShowModal(false);
+        }
+      }
+  
+      document.addEventListener("mousedown", handleCloseModal);
+      return () => {
+        document.removeEventListener("mousedown", handleCloseModal);
+      };
   }, [dispatch, id]);
+
+  
 
   if (allUsers === undefined) {
     return null;
@@ -44,7 +61,6 @@ const Profile = () => {
     return null;
   }
 
-  console.log(products[0][0].images[0].url);
 
   return (
     <div className="profile-container">
@@ -105,9 +121,7 @@ const Profile = () => {
                             </button>
                             <button
                               className="user-product-card-button"
-                              onClick={() =>
-                                dispatch(deleteProduct(product.id))
-                              }
+                              onClick={handleShowModal}
                             >
                               Delete
                             </button>
