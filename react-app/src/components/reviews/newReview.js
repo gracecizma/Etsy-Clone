@@ -13,10 +13,7 @@ const CreateReview = ({
   let [stars, setStars] = useState(0);
   let [errors, setErrors] = useState([])
 
-  let handleSubmit = (e)=>{
-    e.preventDefault()
-    if 
-  }
+
 
   return (
     <div className="CreateReviewForm">
@@ -32,18 +29,18 @@ const CreateReview = ({
         )}
 
         </div>
-        
+
         <label>
-                <textArea
-                value={review}
-                placeholder={`${review}`}
-                onChange={(e)=>setReview(e.target.value)}
-                className="formInput"
-                ></textArea>
-            </label>
-            <label>Stars
-            
-            </label>
+          <textArea
+            value={review}
+            placeholder={`${review}`}
+            onChange={(e) => setReview(e.target.value)}
+            className="formInput"
+          ></textArea>
+        </label>
+        <label>Stars
+
+        </label>
       </form>
     </div>
   )
