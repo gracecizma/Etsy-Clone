@@ -19,7 +19,7 @@ class Product(db.Model):
 
     images = db.relationship('Image', back_populates='product')
     shopping_carts = db.relationship("ShoppingCart", back_populates='product')
-    order = db.relationship("Order", back_populates='products')
+    orders = db.relationship("Order", back_populates='products')
 
     def to_dict(self):
         return {
