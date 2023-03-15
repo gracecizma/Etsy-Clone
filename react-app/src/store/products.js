@@ -1,9 +1,15 @@
 const SET_ALL_PRODUCTS = "products/SET_ALL_PRODUCTS";
 const SET_SINGLE_PRODUCT = "products/SET_SINGLE_PRODUCT";
 const REMOVE_PRODUCT = "products/REMOVE_PRODUCT";
+const SET_ALL_PRODUCTS_BY_USER = "products/SET_ALL_PRODUCTS_BY_USER";
 
 const setAllProducts = (products) => ({
   type: SET_ALL_PRODUCTS,
+  payload: products,
+});
+
+const setProductsByUser = (products) => ({
+  type: SET_ALL_PRODUCTS_BY_USER,
   payload: products,
 });
 
@@ -33,6 +39,16 @@ export const getSingleProduct = (productId) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(setSingleProduct(data));
+    return data;
+  }
+};
+
+// Get all products by a user
+export const getProductsByUser = (userId) => async (dispatch) => {
+  const response = await fetch(`/api/product/seller/${userId}`);
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(setProductsByUser(data));
     return data;
   }
 };
@@ -161,12 +177,16 @@ export const deleteProduct = (productId) => async (dispatch) => {
   }
 };
 
+
+
 const initialState = { allProducts: {}, singleProduct: {} };
 
 export default function productReducer(state = initialState, action) {
   switch (action.type) {
     case SET_ALL_PRODUCTS:
       return { ...state, allProducts: action.payload };
+    case SET_ALL_PRODUCTS_BY_USER:
+      return { ...state, allProductsByUser: action.payload };
     case SET_SINGLE_PRODUCT:
       return { ...state, singleProduct: action.payload };
     case REMOVE_PRODUCT:

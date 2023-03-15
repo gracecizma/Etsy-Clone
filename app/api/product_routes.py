@@ -118,3 +118,10 @@ def edit_product_image(id, image_id):
         db.session.commit()
         return image.to_dict()
     return {'errors': 'Unauthorized'}, 403
+
+
+# get all products by seller id /api/product/seller/:id
+@product_routes.route('/seller/<int:id>')
+def get_products_by_seller(id):
+    products = Product.query.filter_by(seller_id=id).all()
+    return {'products': [product.to_dict() for product in products], 'seller': User.query.get(id).to_dict()}
