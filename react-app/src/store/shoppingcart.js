@@ -1,4 +1,6 @@
 const GET_CART = "shopping-cart/GET_CART"
+const ADD_CART_ITEM = "shopping-cart/ADD_ITEM"
+const EDIT_CART_ITEM = "shopping-cart/EDIT_CART_ITEM"
 const REMOVE_FROM_CART = "shopping-cart/REMOVE_FROM_CART"
 
 const getCart = (cart) => ({
@@ -6,26 +8,74 @@ const getCart = (cart) => ({
   payload: cart
 })
 
-const removeFromCart = () => ({
-  type: REMOVE_FROM_CART
+const addCartItem = (cart) => {
+  return {
+    type: ADD_CART_ITEM,
+    payload: cart
+  }
+}
+
+const updateCartItem = (cart) => {
+  return {
+    type: EDIT_CART_ITEM,
+    payload: cart
+  }
+}
+
+const removeFromCart = (item) => ({
+  type: REMOVE_FROM_CART,
+  payload: item
 })
 
 
 // Get cart
 export const getUserCart = (cartId) => async (dispatch) => {
-  const res = await fetch(`/api/carts/${cartId}`)
+  const res = await fetch(`/api/shopping-cart`)
 
   if (res.ok) {
     const data = await res.json();
-    dispatch(getCart(data))
+
+    let normalizedObj = {}
+    data.forEach((item) => normalizedObj[item.id] = item)
+    dispatch(getCart(normalizedObj))
+  }
+}
+
+// Add item to cart
+export const addItemToCart = (item) => async (dispatch) => {
+  const res = await fetch("/api/shopping-cart", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(item)
+  })
+
+  if (res.ok) {
+    const data = await res.json()
+    dispatch(addCartItem(data))
+  }
+}
+
+// update cart item
+export const updateItemInCart = (item) => async (dispatch) => {
+  const res = await fetch("/api/shopping-cart", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(item)
+  })
+
+  if (res.ok) {
+    const data = await res.json()
+    dispatch(updateCartItem(data))
   }
 }
 
 
 // Delete from cart
-export const deleteFromCart = (productId) => async (dispatch) => {
-  const res = await fetch(`api/carts/remove-from-cart/${productId}`, {
-    method: "DELETE"
+export const deleteFromCart = (item) => async (dispatch) => {
+  const res = await fetch(`api/shopping-cart`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(item)
   })
 
   if (res.ok) {
@@ -34,13 +84,27 @@ export const deleteFromCart = (productId) => async (dispatch) => {
 }
 
 
-const initialState = { cart: {} };
+const initialState = {};
 
 export default function cartReducer(state = initialState, action) {
   switch (action.type) {
     case GET_CART:
-      return { ...state, cart: action.payload }
+      let getState = { ...state }
+      getState["cart"] = action.payload
+      return getState
+    case ADD_CART_ITEM:
+      let addState = { ...state }
+      return addState
+    case EDIT_CART_ITEM:
+      let editState = { ...state }
+      editState.cart = { ...state.cart }
+      editState.cart[action.payload.id].quantity = action.payload.quantity
     case REMOVE_FROM_CART:
-      return { ...state }
+      let deleteState = { ...state }
+      deleteState.cart = { ...state.cart }
+      delete deleteState.cart[action.payload.id]
+      return deleteState
+    default:
+      return state
   }
 }
