@@ -34,7 +34,7 @@ export const getUserCart = (cartId) => async (dispatch) => {
 
   if (res.ok) {
     const data = await res.json();
-
+    console.log("get user cart data", data)
     let normalizedObj = {}
     data.forEach((item) => normalizedObj[item.id] = item)
     dispatch(getCart(normalizedObj))
@@ -44,13 +44,14 @@ export const getUserCart = (cartId) => async (dispatch) => {
 // Add item to cart
 export const addItemToCart = (item) => async (dispatch) => {
   const res = await fetch("/api/shopping-cart", {
-    method: "PUT",
+    method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(item)
   })
 
   if (res.ok) {
     const data = await res.json()
+    console.log("add item to cart data", data)
     dispatch(addCartItem(data))
   }
 }
@@ -65,6 +66,7 @@ export const updateItemInCart = (item) => async (dispatch) => {
 
   if (res.ok) {
     const data = await res.json()
+    console.log("update dart item data", data)
     dispatch(updateCartItem(data))
   }
 }
