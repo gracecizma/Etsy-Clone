@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, session, request
 from app.models import Product, db, Image, User
 from app.forms import ProductForm, ImageForm
 from flask_login import current_user
+from datetime import datetime
 
 
 product_routes = Blueprint('product', __name__)
@@ -25,10 +26,11 @@ def create_product():
             product = Product(
                 name=form.data['name'],
                 description=form.data['description'],
-                category=form.data['category'],
                 price=form.data['price'],
                 quantity=form.data['quantity'],
-                seller_id=seller_id
+                seller_id=seller_id,
+                created_at=datetime.utcnow(),
+                updated_at=datetime.utcnow(),
             )
             db.session.add(product)
             db.session.commit()
@@ -48,11 +50,11 @@ def update_product(id):
         if form.validate_on_submit():
             product.name = form.data['name']
             product.description = form.data['description']
-            product.category = form.data['category']
             product.price = form.data['price']
             product.quantity = form.data['quantity']
-            product.images = form.data['images']
             product.seller_id = seller_id
+            product.updated_at = datetime.utcnow()
+            db.session.add(product)   
             db.session.commit()
             return product.to_dict()
         return {'errors': form.errors}, 401
@@ -87,10 +89,31 @@ def create_product_image(id):
         user = current_user.to_dict()
         product = Product.query.get(id)
         image = Image(
-            image_url=form.data['image_url'],
+            url=form.data['url'],
             preview=form.data['preview'],
             product_id=product.id
         )
+        db.session.add(image)
+        db.session.commit()
+        return image.to_dict()
+    return {'errors': 'Unauthorized'}, 403
+
+# get images by product id /api/product/:id/image
+@product_routes.route('/<int:id>/image')
+def get_product_images(id):
+    product = Product.query.get(id)
+    images = Image.query.filter_by(product_id=product.id).all()
+    return {'images': [image.to_dict() for image in images]}
+
+# edit product image /api/product/:id/image/:image_id
+@product_routes.route('/<int:id>/image/<int:image_id>', methods=['PUT'])
+def edit_product_image(id, image_id):
+    form = ImageForm()
+    if current_user.is_authenticated:
+        user = current_user.to_dict()
+        image = Image.query.get(image_id)
+        image.url = form.data['url']
+        image.preview = form.data['preview']
         db.session.add(image)
         db.session.commit()
         return image.to_dict()
