@@ -88,3 +88,9 @@ def delete_review(id):
             db.session.commit()
         return {"message": "Review deleted"}
     return {"errors": "Unauthorized"}, 403
+
+
+@review_routes.route("/<int:id>", methods=["GET"])
+def get_single_review(id):
+    review = Review.query.get(id)
+    return review.to_dict()
