@@ -169,11 +169,13 @@ export const editProduct = (product, images) => async (dispatch) => {
 // Delete a product
 export const deleteProduct = (productId) => async (dispatch) => {
   const response = await fetch(`/api/product/${productId}`, {
-    method: "DELETE",
+    method: "DELETE"
   });
+
   if (response.ok) {
+    const data = await response.json();
     dispatch(removeProduct());
-    return response;
+    return data;
   }
 };
 
@@ -190,7 +192,7 @@ export default function productReducer(state = initialState, action) {
     case SET_SINGLE_PRODUCT:
       return { ...state, singleProduct: action.payload };
     case REMOVE_PRODUCT:
-      return { ...state, singleProduct: null };
+      return { ...state, singleProduct: {} };
     default:
       return state;
   }
