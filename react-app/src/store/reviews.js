@@ -50,7 +50,7 @@ export const CreateReviewThunk = (ReviewData) => async (dispatch) => {
         }),
     });
     if (response.ok) {
-        formData = response.json()
+        let formData = response.json()
         dispatch(createReview(formData))
         return formData
     }
@@ -73,7 +73,7 @@ export const UpdateReviewThunk = (ReviewData) => async (dispatch) => {
         }),
     });
     if (response.ok) {
-        data = response.json()
+        let data = response.json()
         dispatch(updateReview(data))
         return data
     }
@@ -96,7 +96,7 @@ export const grabAReviewThunk = (reviewId) => async dispatch => {
 export const getReviewsByUser = (userId) => async dispatch => {
     let response = await fetch(`/api/reviews/user/${userId}`)
     if (response.ok) {
-        data = response.json()
+        let data = response.json()
         dispatch(UsersReviews(data))
     }
 
@@ -105,14 +105,14 @@ export const getReviewsByUser = (userId) => async dispatch => {
 export const getReviewsByProduct = (productId) => async dispatch => {
     let response = await fetch(`/api/reviews/product/${productId}`)
     if (response.ok) {
-        data = response.json()
+        let data = response.json()
         dispatch(productsReviews(data))
     }
 
 }
 
 
-initialState = { LoggedInUsersReviews: {}, SelectedReview: {}, SingleProductsReviews: {} }
+const initialState = { LoggedInUsersReviews: {}, SelectedReview: {}, SingleProductsReviews: {} }
 
 
 const ReviewsReducer = (state = initialState, action) => {
