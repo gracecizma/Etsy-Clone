@@ -13,9 +13,9 @@ class Review(db.Model):
     product_id = db.Column(db.ForeignKey(add_prefix_for_prod("products.id")), nullable=False)
     comment = db.Column(db.String(255), nullable=False)
     stars = db.Column(db.Integer, nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow())
+    created_at = db.Column(db.DateTime)
     updated_at = db.Column(
-        db.DateTime, default=datetime.utcnow(), onupdate=datetime.utcnow()
+        db.DateTime
     )
 
     def to_dict(self):
