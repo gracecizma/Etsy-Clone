@@ -81,6 +81,7 @@ export default function ShoppingCart() {
     let total = 0
     for (let item of cartArr) {
       let itemPrice = item.quantity * item.product.price
+      console.log("item price", itemPrice)
       total += itemPrice
     }
     return total
@@ -100,6 +101,7 @@ export default function ShoppingCart() {
 
   let totalQuantity = cartQuantity(cartArr)
   console.log("cart array", cartArr)
+  let totalPrice = cartPrice(cartArr)
 
   return (
     // <h1>Welcome to your shopping cart</h1>
@@ -132,7 +134,7 @@ export default function ShoppingCart() {
                 <select onChange={(e) => updateHandler(e, item)}>
                   {maxAvailable(item.product.quantity).map(number => (
                     item.quantity === number ? (
-                      <option selected value={number}>
+                      <option value={number}>
                         {number}{" "}
                       </option>
                     ) : (
@@ -186,7 +188,7 @@ export default function ShoppingCart() {
 
         <div className="cart-subtotal-container">
           <p>Item(s) Total</p>
-          <p>${parseFloat(cartPrice).toFixed(2)}</p>
+          <p>${parseFloat(totalPrice)}</p>
         </div>
 
         <div className="shipping-container">

@@ -127,8 +127,10 @@ const ReviewsReducer = (state = initialState, action) => {
         //     return {...state,LoggedInUsersReviews:action.payload}
         // case READ_REVIEW_ONE:
         //     break
-        // case READ_REVIEW_PRODUCT:
-        //     break
+        case READ_REVIEW_PRODUCT:
+        let afterProductRead={...state}
+            action.payload.forEach(review=>afterProductRead.SingleProductsReviews[review.id]=review)
+            return afterProductRead
         case READ_REVIEW_USERS:
             let afterRead={...state}
             action.payload.forEach(review=>afterRead.LoggedInUsersReviews[review.id]=review)
