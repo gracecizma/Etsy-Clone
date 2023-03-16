@@ -1,11 +1,11 @@
 // ! constants 
-CREATE_REVIEW = "create Review"
-READ_REVIEW_ALL = "Read all Reviews"
-READ_REVIEW_ONE = "Read Reviews by id"
-READ_REVIEW_USERS = "Read a Users Reviews"
-READ_REVIEW_PRODUCT = "Read a products reviews"
-UPDATE_REVIEW = "update Review"
-DELETE_REVIEW = "delete Review"
+const CREATE_REVIEW = "create Review"
+const READ_REVIEW_ALL = "Read all Reviews"
+const READ_REVIEW_ONE = "Read Reviews by id"
+const READ_REVIEW_USERS = "Read a Users Reviews"
+const READ_REVIEW_PRODUCT = "Read a products reviews"
+const UPDATE_REVIEW = "update Review"
+const DELETE_REVIEW = "delete Review"
 
 // # actions creators
 
