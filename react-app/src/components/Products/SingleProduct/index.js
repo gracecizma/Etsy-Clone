@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSingleProduct } from "../../../store/products";
 import { addItemToCart } from "../../../store/shoppingcart";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import "./SingleProduct.css";
 
 const SingleProduct = () => {
@@ -44,7 +44,9 @@ const SingleProduct = () => {
                 <h3>{product.name}</h3>
                 <p>{product.description}</p>
                 <p>${product.price}</p>
-                <p>Seller: {product.seller?.username}</p>
+                <Link to={`/user/${product.seller?.id}`}>
+                   <p>Seller: {product.seller?.username}</p> 
+                  </Link>          
             </div>
             <div className="cart-button">
                 <button

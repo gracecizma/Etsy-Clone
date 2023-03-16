@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams, Link } from "react-router-dom";
 import { deleteProduct, getProductsByUser } from "../../../store/products";
 import DeleteProduct from "../../Products/DeleteProduct";
 import { getAllUsers } from "../../../store/session";
@@ -63,6 +63,7 @@ const Profile = () => {
     return null;
   }
 
+  console.log(loggedInUser.id === Number(id))
 
   return (
     <>
@@ -84,7 +85,7 @@ const Profile = () => {
               <div className="profile-info-body-left">
                 <div className="profile-info-body-left-item">
                   <h3>Username</h3>
-                  <p>{user.username}</p>
+                  <p>{user.username}</p>                          
                 </div>
                 <div className="profile-info-body-left-item">
                   <h3>Email</h3>
@@ -94,7 +95,7 @@ const Profile = () => {
               <div className="user-products-section">
                 <div className="user-products-header">
                   <h2>My Products</h2>
-                  {user.id === Number(id) && (
+                  {loggedInUser.id === Number(id) && (
                     <button
                       className="add-product-button"
                       onClick={() => history.push("/products/new")}
@@ -120,7 +121,7 @@ const Profile = () => {
                             <p>{product.description}</p>
                             <p>${product.price}</p>
                           </div>
-                          {user.id === Number(id) && (
+                          {loggedInUser.id === Number(id) && (
                             <div className="user-product-card-buttons">
                               <button
                                 className="user-product-card-button"
