@@ -9,6 +9,7 @@ export default function ShoppingCart() {
   const cart = useSelector((state) => state?.cart?.cart);
   console.log("cart items", cart)
   const currUser = useSelector((state) => state?.session?.user)
+  console.log("current user", currUser)
 
   useEffect(() => {
     dispatch(getUserCart())

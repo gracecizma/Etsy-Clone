@@ -43,7 +43,7 @@ export const getUserCart = () => async (dispatch) => {
 
 // Add item to cart
 export const addItemToCart = (item) => async (dispatch) => {
-  const res = await fetch("/api/shopping-cart", {
+  const res = await fetch("/api/shopping-cart/", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(item)
@@ -58,7 +58,7 @@ export const addItemToCart = (item) => async (dispatch) => {
 
 // update cart item
 export const updateItemInCart = (item) => async (dispatch) => {
-  const res = await fetch("/api/shopping-cart", {
+  const res = await fetch("/api/shopping-cart/", {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(item)
@@ -74,7 +74,7 @@ export const updateItemInCart = (item) => async (dispatch) => {
 
 // Delete from cart
 export const deleteFromCart = (item) => async (dispatch) => {
-  const res = await fetch(`api/shopping-cart`, {
+  const res = await fetch(`api/shopping-cart/`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(item)
