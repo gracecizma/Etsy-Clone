@@ -12,7 +12,14 @@ def seed_images():
         image = Image(
             url=images[randint(0, len(images)-1)],
             preview=True,
-            product_id=randint(1, 20)
+            product_id=i+1,
+        )
+        db.session.add(image)
+    for i in range(20):
+        image = Image(
+            url=images[randint(0, len(images)-1)],
+            preview=False,
+            product_id=randint(1, 20),
         )
         db.session.add(image)
 
