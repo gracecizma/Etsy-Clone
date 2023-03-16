@@ -52,9 +52,7 @@ def leave_Review():
     return {"errors": "Unauthorized"}, 403
 
 
-review_routes.route("/<int:id>", methods=["PUT"])
-
-
+@review_routes.route("/<int:id>", methods=["PUT"])
 def Update_Review(id):
 
     form = NewReviewForm()
