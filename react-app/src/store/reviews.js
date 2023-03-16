@@ -35,22 +35,18 @@ export function productsReviews(reviews) {
 
 export const CreateReviewThunk = (ReviewData) => async (dispatch) => {
 
-    let { product_id, user_id, comment, stars } = ReviewData
+    console.log("---", ReviewData)
+    let { user_id, product_id, stars, comment } = ReviewData
 
-    const response = await fetch(`/api/reviews/`, {
+    const response = await fetch(`/api/reviews/new`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-            user_id,
-            product_id,
-            comment,
-            stars,
-        }),
+        body: JSON.stringify({ user_id, product_id, stars, comment }),
     });
     if (response.ok) {
-        let formData = response.json()
+        let formData = await response.json()
         dispatch(createReview(formData))
         return formData
     }
@@ -118,19 +114,19 @@ const initialState = { LoggedInUsersReviews: {}, SelectedReview: {}, SingleProdu
 const ReviewsReducer = (state = initialState, action) => {
     switch (action.type) {
         case CREATE_REVIEW:
-            break
-        case UPDATE_REVIEW:
-            break
-        case DELETE_REVIEW:
-            break
-        case READ_REVIEW_ALL:
-            break
-        case READ_REVIEW_ONE:
-            break
-        case READ_REVIEW_PRODUCT:
-            break
-        case READ_REVIEW_USERS:
-            break
+            return {...state.LoggedInUsersReviews,[action.payload.id]:action.payload}
+        // case UPDATE_REVIEW:
+        //     break
+        // case DELETE_REVIEW:
+        //     break
+        // case READ_REVIEW_ALL:
+        //     break
+        // case READ_REVIEW_ONE:
+        //     break
+        // case READ_REVIEW_PRODUCT:
+        //     break
+        // case READ_REVIEW_USERS:
+        //     break
         default:
             return state
     }

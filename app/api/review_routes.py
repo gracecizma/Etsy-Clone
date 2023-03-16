@@ -29,21 +29,26 @@ def ProductReviews():
     return [review.to_dict() for review in product_reviews]
 
 
-@review_routes.route("/", methods=["POST"])
+@review_routes.route("/new", methods=["POST"])
 def leave_Review():
-
+    print("The current_user object is :",current_user)
+    print("The Request",request.data)
     form = NewReviewForm()
     if current_user.is_authenticated:
         user = current_user.to_dict()
+        user_id = user['id']
+        print("Authenticated!")
         form["csrf_token"].data = request.cookies["csrf_token"]
+        print("-----------",form.data)
         if form.validate_on_submit():
+            print("Form Validated")
             review = Review(
-                user_id=form.user_id.data,
-                product_id=form.product_id.data,
-                comment=form.comment.data,
-                stars=form.stars.data,
-                created_at=form.created_at.data,
-                updated_at=form.updated_at.data,
+                user_id=user_id,
+                product_id=form.data["product_id"],
+                comment=form.data["comment"],
+                stars=form.data["stars"],
+                created_at=datetime.utcnow(),
+                updated_at=datetime.utcnow(),
             )
             db.session.add(review)
             db.session.commit()
