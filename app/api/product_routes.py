@@ -72,8 +72,8 @@ def get_product(id):
 # Delete a product /api/product/:id
 @product_routes.route('/<int:id>', methods=['DELETE'])
 def delete_product(id):
+
     if current_user.is_authenticated:
-        user = current_user.to_dict()
         product = Product.query.get(id)
         db.session.delete(product)
         db.session.commit()
