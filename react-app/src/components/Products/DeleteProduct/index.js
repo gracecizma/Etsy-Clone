@@ -16,7 +16,7 @@ function DeleteProduct({ setShowModal, productId }) {
     const handleDeleteProduct = () => {
         dispatch(deleteProduct(productId)).then(() => {
             dispatch(getAllProducts());
-            // history.push("/products");
+            history.push("/products");
         })
     }
 

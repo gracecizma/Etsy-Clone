@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserCart, addItemToCart, updateItemInCart, deleteFromCart } from "../../store/shoppingcart"
-import { addNewOrder } from "../../store/orders"
+// import { addNewOrder } from "../../store/orders"
 import "./shoppingcart.css"
 
 export default function ShoppingCart() {
@@ -9,6 +9,7 @@ export default function ShoppingCart() {
   const cart = useSelector((state) => state?.cart?.cart);
   console.log("cart items", cart)
   const currUser = useSelector((state) => state?.session?.user)
+  console.log("current user", currUser)
 
   useEffect(() => {
     dispatch(getUserCart())
