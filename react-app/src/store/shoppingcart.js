@@ -30,7 +30,7 @@ const removeFromCart = (item) => ({
 
 // Get cart
 export const getUserCart = () => async (dispatch) => {
-  const res = await fetch(`/api/shopping-cart`)
+  const res = await fetch(`/api/shopping-cart/`)
 
   if (res.ok) {
     const data = await res.json();

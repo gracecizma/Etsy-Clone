@@ -3,7 +3,7 @@ from app.models import db, ShoppingCart
 from app.forms import AddToCart
 from flask_login import current_user
 
-shopping_routes = Blueprint('shopping_cart', __name__)
+shopping_routes = Blueprint('shopping-cart', __name__)
 
 
 # Get a user's cart
@@ -57,7 +57,7 @@ def update_quantity():
 
 
 # DELETE Remove a listing from a cart
-@shopping_routes.route('/', method=["DELETE"])
+@shopping_routes.route('/', methods=["DELETE"])
 def delete_from_cart():
     res = request.get_json()
 

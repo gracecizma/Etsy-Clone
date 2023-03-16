@@ -15,9 +15,17 @@ export default function ShoppingCart() {
   }, [dispatch])
 
 
-  if (!cartItems) return (
+  if (!cart) return (
     <h1>Unable to load cart, please try again later.</h1>
   )
+
+  if (!currUser) {
+    return (
+      <div className="cart-container">
+        <h1>Please log in to add items to cart</h1>
+      </div>
+    );
+  }
 
   const updateHandler = async (e, item) => {
     const itemData = {
