@@ -12,7 +12,6 @@ const SingleProduct = () => {
     const { id } = useParams();
     const product = useSelector((state) => state.products.singleProduct);
     const currUser = useSelector((state) => state?.session?.user)
-    const cart = useSelector((state) => state?.cart?.cart)
     const [quantity, setQuantity] = useState(0)
 
     useEffect(() => {
@@ -37,12 +36,12 @@ const SingleProduct = () => {
         e.preventDefault()
 
         const data = {
-            userId: currUser.id,
-            productId: product.id,
+            user_id: currUser.id,
+            product_id: product.id,
             quantity: quantity
         }
+        console.log("item to be added", data)
         await dispatch(addItemToCart(data))
-        await dispatch(getUserCart())
     }
 
     const disableButton = () => {

@@ -48,7 +48,8 @@ export const addItemToCart = (item) => async (dispatch) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(item)
   })
-
+  console.log("item", item)
+  console.log("res", res)
   if (res.ok) {
     const data = await res.json()
     console.log("add item to cart data", data)
@@ -86,18 +87,23 @@ export const deleteFromCart = (item) => async (dispatch) => {
 }
 
 
-const initialState = {};
+const initialState = {
+  cart: {}
+};
 
 export default function cartReducer(state = initialState, action) {
   switch (action.type) {
     case GET_CART:
-      let getState = { ...state }
+      let getState = { ...state, cart: { ...state.cart } }
       console.log("get cart state", getState)
-      getState["cart"] = action.payload
+      getState.cart = action.payload
       console.log("get state action", action.payload)
       return getState
     case ADD_CART_ITEM:
-      let addState = { ...state }
+      let addState = { ...state, cart: { ...state.cart } }
+      console.log("add to cart state", addState)
+      addState.cart[action.payload.id] = action.payload
+      console.log("add state action", action.payload)
       return addState
     case EDIT_CART_ITEM:
       let editState = { ...state }
