@@ -12,7 +12,6 @@ def get_cart():
     user = current_user.to_dict()
 
     user_cart = ShoppingCart.query.filter(ShoppingCart.user_id == user["id"])
-
     items_list = []
 
     for item in list(user_cart):
@@ -20,6 +19,7 @@ def get_cart():
         item_dict["product"] = item.products.to_dict()
         items_list.append(item_dict)
 
+    print("items_list", items_list)
     return items_list
 
 
@@ -27,6 +27,7 @@ def get_cart():
 @shopping_routes.route('/', methods=['POST'])
 def add_to_cart():
     res = request.get_json()
+    print("request to add", res)
 
     form = AddToCart()
     form["csrf_token"].data = request.cookies["csrf_token"]
@@ -35,7 +36,7 @@ def add_to_cart():
         cart = ShoppingCart(
             product_id=res["product_id"],
             user_id=res["user_id"],
-            quantity=res["quantity"]
+            quantity=form.data["quantity"]
         )
         db.session.add(cart)
         db.session.commit()

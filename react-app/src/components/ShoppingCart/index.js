@@ -15,11 +15,6 @@ export default function ShoppingCart() {
     dispatch(getUserCart())
   }, [dispatch])
 
-
-  if (!cart) return (
-    <h1>Unable to load cart, please try again later.</h1>
-  )
-
   if (!currUser) {
     return (
       <div className="cart-container">
@@ -28,12 +23,13 @@ export default function ShoppingCart() {
     );
   }
 
+
   const updateHandler = async (e, item) => {
     const itemData = {
       id: item.id,
       userId: currUser.id,
       productId: item.product_id,
-      quantity: Number(e.target.value)
+      quantity: (e.target.value)
     }
     await dispatch(updateItemInCart(itemData))
   }

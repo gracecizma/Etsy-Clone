@@ -18,7 +18,7 @@ class Product(db.Model):
         add_prefix_for_prod('users.id')), nullable=False)
 
     images = db.relationship('Image', back_populates='product')
-    shopping_carts = db.relationship("ShoppingCart", back_populates='product')
+    shopping_cart = db.relationship("ShoppingCart", back_populates='products')
     orders = db.relationship("Order", back_populates='products')
 
     def to_dict(self):

@@ -11,9 +11,8 @@ const SingleProduct = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const product = useSelector((state) => state.products.singleProduct);
-  const currUser = useSelector((state) => state?.session?.user);
-  const cart = useSelector((state) => state?.cart?.cart);
-  const [quantity, setQuantity] = useState(0);
+  const currUser = useSelector((state) => state?.session?.user)
+  const [quantity, setQuantity] = useState(0)
 
   useEffect(() => {
     dispatch(getSingleProduct(id));
@@ -35,14 +34,15 @@ const SingleProduct = () => {
   const addCartClick = async (e) => {
     e.preventDefault();
 
+
     const data = {
-      userId: currUser.id,
-      productId: product.id,
-      quantity: quantity,
-    };
-    await dispatch(addItemToCart(data));
-    await dispatch(getUserCart());
-  };
+      user_id: currUser.id,
+      product_id: product.id,
+      quantity: quantity
+    }
+    console.log("item to be added", data)
+    await dispatch(addItemToCart(data))
+  }
 
   const disableButton = () => {
     if (!currUser) {
