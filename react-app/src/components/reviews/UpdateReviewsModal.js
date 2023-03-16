@@ -1,21 +1,29 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { Rating } from 'react-simple-star-rating'
-import { CreateReviewThunk } from "../../store/reviews";
+import { UpdateReviewThunk, getReviewsByUser } from "../../store/reviews";
 
 
 
 
-function ReviewModal({ product_id }) {
+function UpdateReviewsModal({ reviewId }) {
 
     const dispatch = useDispatch();
-    let [review, setReview] = useState('')
-    let [rating, setRating] = useState(0)
+    let origReview = useSelector(state => state.reviews.LoggedInUsersReviews[reviewId])
+    let [review, setReview] = useState("")
+    let [rating, setRating] = useState(3)
     let user_id = useSelector(state => state.session.user.id)
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
+    useEffect(() => {
+      return () => {
+        if(origReview===undefined){
+             dispatch(getReviewsByUser(user_id))
 
+        }
+      };
+    }, [])
 
     // Catch Rating value
     const handleRating = (rate) => {
@@ -33,7 +41,7 @@ function ReviewModal({ product_id }) {
             Errors.push("Ratings Are Positive Numbers Under 5!!")
         }
         if (!Errors.length) {
-            dispatch(CreateReviewThunk({ "comment": review, "stars": rating, "user_id": user_id, "product_id": product_id }))
+            dispatch(UpdateReviewThunk({ "id": reviewId, "comment": review, "stars": rating }))
             closeModal()
 
         }
@@ -44,7 +52,7 @@ function ReviewModal({ product_id }) {
     return (
         <>
             <div className="modal-Review">
-                <h1>Add a Review!</h1>
+                <h1>Update Review!</h1>
                 <form className="ReviewForm" onSubmit={handleSubmit}>
                     <ul>
                         {errors.map((error, idx) => (
@@ -55,7 +63,7 @@ function ReviewModal({ product_id }) {
                     </ul>
                     <label>Review</label>
                     <textarea
-                        placeholder="how was your purchase?"
+                        placeholder={"How was your Purchase?"}
                         value={review}
                         onChange={(e) => setReview(e.target.value)}
 
@@ -66,7 +74,7 @@ function ReviewModal({ product_id }) {
 
 
                     <button className="ReviewButton" type="submit">
-                        Publish Review
+                        Update Review
                     </button>
                 </form>
             </div>
@@ -74,4 +82,4 @@ function ReviewModal({ product_id }) {
     );
 }
 
-export default ReviewModal;
+export default UpdateReviewsModal;

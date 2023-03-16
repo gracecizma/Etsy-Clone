@@ -35,22 +35,18 @@ export function productsReviews(reviews) {
 
 export const CreateReviewThunk = (ReviewData) => async (dispatch) => {
 
-    let { product_id, user_id, comment, stars } = ReviewData
+    console.log("---", ReviewData)
+    let { user_id, product_id, stars, comment } = ReviewData
 
-    const response = await fetch(`/api/reviews/`, {
+    const response = await fetch(`/api/reviews/new`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-            user_id,
-            product_id,
-            comment,
-            stars,
-        }),
+        body: JSON.stringify({ user_id, product_id, stars, comment }),
     });
     if (response.ok) {
-        let formData = response.json()
+        let formData = await response.json()
         dispatch(createReview(formData))
         return formData
     }
@@ -63,7 +59,7 @@ export const UpdateReviewThunk = (ReviewData) => async (dispatch) => {
     let { id, comment, stars } = ReviewData
 
     const response = await fetch(`/api/reviews/${ReviewData.id}`, {
-        method: "post",
+        method: "put",
         headers: {
             "Content-Type": "application/json",
         },
@@ -73,7 +69,7 @@ export const UpdateReviewThunk = (ReviewData) => async (dispatch) => {
         }),
     });
     if (response.ok) {
-        let data = response.json()
+        let data = await response.json()
         dispatch(updateReview(data))
         return data
     }
@@ -85,7 +81,7 @@ export const grabAReviewThunk = (reviewId) => async dispatch => {
     let review = await fetch(`api/reviews/${reviewId}`)
 
     if (review.ok) {
-        let res = review.json()
+        let res = await  review.json()
         dispatch(SingleReview(res))
         return res
 
@@ -96,7 +92,7 @@ export const grabAReviewThunk = (reviewId) => async dispatch => {
 export const getReviewsByUser = (userId) => async dispatch => {
     let response = await fetch(`/api/reviews/user/${userId}`)
     if (response.ok) {
-        let data = response.json()
+        let data = await response.json()
         dispatch(UsersReviews(data))
     }
 
@@ -105,7 +101,7 @@ export const getReviewsByUser = (userId) => async dispatch => {
 export const getReviewsByProduct = (productId) => async dispatch => {
     let response = await fetch(`/api/reviews/product/${productId}`)
     if (response.ok) {
-        let data = response.json()
+        let data =await response.json()
         dispatch(productsReviews(data))
     }
 
@@ -118,19 +114,25 @@ const initialState = { LoggedInUsersReviews: {}, SelectedReview: {}, SingleProdu
 const ReviewsReducer = (state = initialState, action) => {
     switch (action.type) {
         case CREATE_REVIEW:
-            break
+            let afterCreate = {...state}
+            afterCreate["LoggedInUsersReviews"] = {...state.LoggedInUsersReviews,[action.payload.id]:action.payload}
+            return afterCreate
         case UPDATE_REVIEW:
-            break
-        case DELETE_REVIEW:
-            break
-        case READ_REVIEW_ALL:
-            break
-        case READ_REVIEW_ONE:
-            break
-        case READ_REVIEW_PRODUCT:
-            break
+            let afterUpdate = {...state}
+            afterUpdate["LoggedInUsersReviews"] = {...state.LoggedInUsersReviews,[action.payload.id]:action.payload}
+            return afterUpdate
+        // case DELETE_REVIEW:
+        //     break
+        // case READ_REVIEW_ALL:
+        //     return {...state,LoggedInUsersReviews:action.payload}
+        // case READ_REVIEW_ONE:
+        //     break
+        // case READ_REVIEW_PRODUCT:
+        //     break
         case READ_REVIEW_USERS:
-            break
+            let afterRead={...state}
+            action.payload.forEach(review=>afterRead.LoggedInUsersReviews[review.id]=review)
+            return afterRead
         default:
             return state
     }
