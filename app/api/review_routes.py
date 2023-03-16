@@ -5,6 +5,7 @@ from datetime import datetime
 
 from app.models import Review
 from app.forms.new_review_form import NewReviewForm
+from app.forms.update_review_form import UpdateReviewForm
 
 review_routes = Blueprint("review", __name__)
 
@@ -31,15 +32,15 @@ def ProductReviews():
 
 @review_routes.route("/new", methods=["POST"])
 def leave_Review():
-    print("The current_user object is :",current_user)
-    print("The Request",request.data)
+    print("The current_user object is :", current_user)
+    print("The Request", request.data)
     form = NewReviewForm()
     if current_user.is_authenticated:
         user = current_user.to_dict()
-        user_id = user['id']
+        user_id = user["id"]
         print("Authenticated!")
         form["csrf_token"].data = request.cookies["csrf_token"]
-        print("-----------",form.data)
+        print("-----------", form.data)
         if form.validate_on_submit():
             print("Form Validated")
             review = Review(
@@ -60,23 +61,19 @@ def leave_Review():
 @review_routes.route("/<int:id>", methods=["PUT"])
 def Update_Review(id):
 
-    form = NewReviewForm()
+    review_to_update = Review.query.get(id)
+    form = UpdateReviewForm()
     if current_user.is_authenticated:
         user = current_user.to_dict()
         form["csrf_token"].data = request.cookies["csrf_token"]
+        
         if form.validate_on_submit():
-            review_to_edit = Review.query.get(id)
-
-            review_to_edit.id = form.data["id"]
-            review_to_edit.user_id = user.id
-            review_to_edit.product_id = form.data["product_id"]
-            review_to_edit.comment = form.data["comment"]
-            review_to_edit.stars = form.data["stars"]
-            review_to_edit.updated_at = form.data["updated_at"]
-
-            db.session.add(review_to_edit)
+            review_to_update.comment = form.data["comment"]
+            review_to_update.stars = form.data["stars"]
+            review_to_update.updated_at =datetime.utcnow()
+            db.session.add(review_to_update)
             db.session.commit()
-            return review_to_edit.to_dict()
+            return review_to_update.to_dict()
         return {"errors": form.errors}, 401
     return {"errors": "Unauthorized"}, 403
 

@@ -59,7 +59,7 @@ export const UpdateReviewThunk = (ReviewData) => async (dispatch) => {
     let { id, comment, stars } = ReviewData
 
     const response = await fetch(`/api/reviews/${ReviewData.id}`, {
-        method: "post",
+        method: "put",
         headers: {
             "Content-Type": "application/json",
         },
@@ -69,7 +69,7 @@ export const UpdateReviewThunk = (ReviewData) => async (dispatch) => {
         }),
     });
     if (response.ok) {
-        let data = response.json()
+        let data = await response.json()
         dispatch(updateReview(data))
         return data
     }
@@ -81,7 +81,7 @@ export const grabAReviewThunk = (reviewId) => async dispatch => {
     let review = await fetch(`api/reviews/${reviewId}`)
 
     if (review.ok) {
-        let res = review.json()
+        let res = await  review.json()
         dispatch(SingleReview(res))
         return res
 
@@ -92,7 +92,7 @@ export const grabAReviewThunk = (reviewId) => async dispatch => {
 export const getReviewsByUser = (userId) => async dispatch => {
     let response = await fetch(`/api/reviews/user/${userId}`)
     if (response.ok) {
-        let data = response.json()
+        let data = await response.json()
         dispatch(UsersReviews(data))
     }
 
@@ -101,7 +101,7 @@ export const getReviewsByUser = (userId) => async dispatch => {
 export const getReviewsByProduct = (productId) => async dispatch => {
     let response = await fetch(`/api/reviews/product/${productId}`)
     if (response.ok) {
-        let data = response.json()
+        let data =await response.json()
         dispatch(productsReviews(data))
     }
 
@@ -114,19 +114,25 @@ const initialState = { LoggedInUsersReviews: {}, SelectedReview: {}, SingleProdu
 const ReviewsReducer = (state = initialState, action) => {
     switch (action.type) {
         case CREATE_REVIEW:
-            return {...state.LoggedInUsersReviews,[action.payload.id]:action.payload}
-        // case UPDATE_REVIEW:
-        //     break
+            let afterCreate = {...state}
+            afterCreate["LoggedInUsersReviews"] = {...state.LoggedInUsersReviews,[action.payload.id]:action.payload}
+            return afterCreate
+        case UPDATE_REVIEW:
+            let afterUpdate = {...state}
+            afterUpdate["LoggedInUsersReviews"] = {...state.LoggedInUsersReviews,[action.payload.id]:action.payload}
+            return afterUpdate
         // case DELETE_REVIEW:
         //     break
         // case READ_REVIEW_ALL:
-        //     break
+        //     return {...state,LoggedInUsersReviews:action.payload}
         // case READ_REVIEW_ONE:
         //     break
         // case READ_REVIEW_PRODUCT:
         //     break
-        // case READ_REVIEW_USERS:
-        //     break
+        case READ_REVIEW_USERS:
+            let afterRead={...state}
+            action.payload.forEach(review=>afterRead.LoggedInUsersReviews[review.id]=review)
+            return afterRead
         default:
             return state
     }
