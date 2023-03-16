@@ -1,0 +1,28 @@
+.single-product-img {
+  width: 500px;
+  height: 450px;
+}
+
+.images-row {
+  overflow-x: scroll;
+  height: 450px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.single-product-name {
+  padding-left: 3px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.single-product-price {
+  font-size: 40px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+.tax {
+  color: rgb(165, 165, 165);
+  margin-top: 0;
+}

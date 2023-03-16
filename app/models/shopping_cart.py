@@ -14,14 +14,12 @@ class ShoppingCart(db.Model):
         add_prefix_for_prod('users.id')), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
 
-    product = db.relationship("Product", back_populates="shopping_carts")
+    products = db.relationship("Product", back_populates="shopping_cart")
     user = db.relationship("User", back_populates="shopping_carts")
 
     def to_dict(self):
         return {
             "id": self.id,
-            "product_id": self.product_id,
-            "products": [product.to_dict() for product in self.products],
             "user_id": self.user_id,
             "quantity": self.quantity
         }

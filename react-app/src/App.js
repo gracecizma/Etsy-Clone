@@ -12,6 +12,7 @@ import UpdateProduct from "./components/Products/UpdateProduct";
 import Profile from "./components/User/Profile";
 import SingleReviewBlock from "./components/reviews/SingleReviewBlock";
 import SearchPage from "./components/SearchPage";
+import ShoppingCart from "./components/ShoppingCart";
 
 function App() {
   const dispatch = useDispatch();
@@ -46,7 +47,6 @@ function App() {
           <Route path="/products/:id">
             <SingleProduct />
           </Route>
-
           <Route path="/user/:id">
             <Profile />
           </Route>
@@ -55,6 +55,9 @@ function App() {
           </Route>
           <Route path="/search/:searchParams">
             <SearchPage />
+          </Route>
+          <Route path="/shopping-cart">
+            <ShoppingCart />
           </Route>
         </Switch>
       )}

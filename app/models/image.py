@@ -9,7 +9,7 @@ class Image(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String(255))
     preview = db.Column(db.Boolean(), nullable=False)
-    product_id = db.Column(db.ForeignKey(add_prefix_for_prod('products.id')), nullable=False)
+    product_id = db.Column(db.ForeignKey(add_prefix_for_prod('products.id')))
     product = db.relationship('Product', back_populates='images')
 
     def to_dict(self):

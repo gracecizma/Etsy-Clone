@@ -3,7 +3,7 @@ from app.models import db, ShoppingCart
 from app.forms import AddToCart
 from flask_login import current_user
 
-shopping_routes = Blueprint('shopping_cart', __name__)
+shopping_routes = Blueprint('shopping-cart', __name__)
 
 
 # Get a user's cart
@@ -12,7 +12,6 @@ def get_cart():
     user = current_user.to_dict()
 
     user_cart = ShoppingCart.query.filter(ShoppingCart.user_id == user["id"])
-
     items_list = []
 
     for item in list(user_cart):
@@ -20,6 +19,7 @@ def get_cart():
         item_dict["product"] = item.products.to_dict()
         items_list.append(item_dict)
 
+    print("items_list", items_list)
     return items_list
 
 
@@ -27,6 +27,7 @@ def get_cart():
 @shopping_routes.route('/', methods=['POST'])
 def add_to_cart():
     res = request.get_json()
+    print("request to add", res)
 
     form = AddToCart()
     form["csrf_token"].data = request.cookies["csrf_token"]
@@ -35,7 +36,7 @@ def add_to_cart():
         cart = ShoppingCart(
             product_id=res["product_id"],
             user_id=res["user_id"],
-            quantity=res["quantity"]
+            quantity=form.data["quantity"]
         )
         db.session.add(cart)
         db.session.commit()
@@ -57,8 +58,8 @@ def update_quantity():
 
 
 # DELETE Remove a listing from a cart
-@shopping_routes.route('/remove-from-cart/<int:id>')
-def delete_from_cart(id):
+@shopping_routes.route('/', methods=["DELETE"])
+def delete_from_cart():
     res = request.get_json()
 
     delete_item = ShoppingCart.query.get(res["id"])

@@ -3,20 +3,19 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import { deleteProduct, getProductsDetails, getProducts } from "../../../store/products";
-import "./DeleteProductModal.css";
+import { deleteProduct, getProductsDetails, getAllProducts } from "../../../store/products";
+import "./DeleteProduct.css";
 
 
-function DeleteProduct({ setShowModal }) {
+function DeleteProduct({ setShowModal, productId }) {
     const dispatch = useDispatch();
     const history = useHistory();
-    const productId = useParams().productId;
-    const divRef = useRef(null);
+
 
 
     const handleDeleteProduct = () => {
         dispatch(deleteProduct(productId)).then(() => {
-            dispatch(getProducts());
+            dispatch(getAllProducts());
             history.push("/products");
         })
     }
@@ -33,3 +32,5 @@ function DeleteProduct({ setShowModal }) {
         </div>
     );
 }
+
+export default DeleteProduct;
