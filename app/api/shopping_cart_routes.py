@@ -57,8 +57,8 @@ def update_quantity():
 
 
 # DELETE Remove a listing from a cart
-@shopping_routes.route('/remove-from-cart/<int:id>')
-def delete_from_cart(id):
+@shopping_routes.route('/', method=["DELETE"])
+def delete_from_cart():
     res = request.get_json()
 
     delete_item = ShoppingCart.query.get(res["id"])
