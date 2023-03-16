@@ -92,7 +92,9 @@ export default function cartReducer(state = initialState, action) {
   switch (action.type) {
     case GET_CART:
       let getState = { ...state }
+      console.log("get cart state", getState)
       getState["cart"] = action.payload
+      console.log("get state action", action.payload)
       return getState
     case ADD_CART_ITEM:
       let addState = { ...state }
