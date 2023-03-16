@@ -13,6 +13,7 @@ import Profile from "./components/User/Profile";
 import SingleReviewBlock from "./components/reviews/SingleReviewBlock";
 import SearchPage from "./components/SearchPage";
 import ShoppingCart from "./components/ShoppingCart";
+import SuccessfulPurchasePage from "./components/ShoppingCart/SuccessfulPurchase";
 
 function App() {
   const dispatch = useDispatch();
@@ -58,6 +59,9 @@ function App() {
           </Route>
           <Route path="/shopping-cart">
             <ShoppingCart />
+          </Route>
+          <Route path="/orders/success">
+            <SuccessfulPurchasePage />
           </Route>
         </Switch>
       )}
