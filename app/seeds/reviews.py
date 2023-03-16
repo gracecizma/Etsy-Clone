@@ -7,7 +7,7 @@ from random import randint
 def seed_reviews():
     for i in range(10):
         review = Review(
-            user_id=randint(1, 3),
+            user_id=randint(2, 3),
             product_id=randint(1,20),
             comment=f"this is review # {i}",
             stars=randint(1, 6),
