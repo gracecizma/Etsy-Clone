@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSingleProduct } from "../../../store/products";
 import { addItemToCart, getUserCart } from "../../../store/shoppingcart";
-import { useParams } from "react-router-dom";
 import AddToCart from "../../ShoppingCart/AddToCart"
 import OpenModalButton from "../../OpenModalButton";
+import { useParams, Link } from "react-router-dom";
 import "./SingleProduct.css";
 
 const SingleProduct = () => {
@@ -64,7 +64,9 @@ const SingleProduct = () => {
                 <h3>{product.name}</h3>
                 <p>{product.description}</p>
                 <p>${product.price}</p>
-                <p>Seller: {product.seller?.username}</p>
+                <Link to={`/user/${product.seller?.id}`}>
+                    <p>Seller: {product.seller?.username}</p>
+                </Link>
             </div>
             <select className="select-quantity" onChange={quantityUpdate}>
                 <option>Select Quantity</option>

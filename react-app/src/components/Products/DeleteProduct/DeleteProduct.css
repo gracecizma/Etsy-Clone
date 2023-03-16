@@ -27,7 +27,7 @@
 }
 
 .delete-button-model {
-    background-color: red;
+    background-color: rgb(255, 119, 0);
     color: white;
     width: 10rem;
     height: 2rem;
