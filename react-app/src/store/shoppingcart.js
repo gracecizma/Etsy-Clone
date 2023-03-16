@@ -34,9 +34,10 @@ export const getUserCart = () => async (dispatch) => {
 
   if (res.ok) {
     const data = await res.json();
-    console.log("get user cart data", data)
+    // console.log("get user cart data", data)
     let normalizedObj = {}
     data.forEach((item) => normalizedObj[item.id] = item)
+    // console.log("user cart data normalized obj", normalizedObj)
     dispatch(getCart(normalizedObj))
   }
 }
@@ -83,6 +84,7 @@ export const deleteFromCart = (item) => async (dispatch) => {
 
   if (res.ok) {
     dispatch(removeFromCart())
+    dispatch(getUserCart())
   }
 }
 
@@ -94,16 +96,16 @@ const initialState = {
 export default function cartReducer(state = initialState, action) {
   switch (action.type) {
     case GET_CART:
-      let getState = { ...state, cart: { ...state.cart } }
-      console.log("get cart state", getState)
+      let getState = { ...state }
+      // console.log("get cart state", getState)
       getState.cart = action.payload
-      console.log("get state action", action.payload)
+      // console.log("get state action", action.payload)
       return getState
     case ADD_CART_ITEM:
       let addState = { ...state, cart: { ...state.cart } }
-      console.log("add to cart state", addState)
-      addState.cart[action.payload.id] = action.payload
-      console.log("add state action", action.payload)
+      // console.log("add to cart state", addState)
+      // addState.cart[action.payload.id] = action.payload
+      // console.log("add state action", action.payload)
       return addState
     case EDIT_CART_ITEM:
       let editState = { ...state }
@@ -112,8 +114,7 @@ export default function cartReducer(state = initialState, action) {
       return editState
     case REMOVE_FROM_CART:
       let deleteState = { ...state }
-      deleteState.cart = { ...state.cart }
-      delete deleteState.cart[action.payload.id]
+      delete deleteState.cart[action.payload]
       return deleteState
     default:
       return state
