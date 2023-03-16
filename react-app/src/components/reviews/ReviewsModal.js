@@ -7,11 +7,12 @@ import { CreateReviewThunk } from "../../store/reviews";
 
 
 
-function ReviewModal({ productId, userId }) {
+function ReviewModal({ product_id }) {
+
     const dispatch = useDispatch();
     let [review, setReview] = useState('')
     let [rating, setRating] = useState(0)
-    // let User = useSelector(state=>state.session.user)
+    let user_id = useSelector(state => state.session.user.id)
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
 
@@ -32,8 +33,9 @@ function ReviewModal({ productId, userId }) {
             Errors.push("Ratings Are Positive Numbers Under 5!!")
         }
         if (!Errors.length) {
-            let submission = await dispatch(CreateReviewThunk({ review, rating, userId, productId }))
+            dispatch(CreateReviewThunk({ "comment": review, "stars": rating, "user_id": user_id, "product_id": product_id }))
             closeModal()
+
         }
         else {
             setErrors(Errors)
