@@ -14,6 +14,7 @@ import SingleReviewBlock from "./components/reviews/SingleReviewBlock";
 import SearchPage from "./components/SearchPage";
 import ShoppingCart from "./components/ShoppingCart";
 import SuccessfulPurchasePage from "./components/ShoppingCart/SuccessfulPurchase";
+import About from "./components/About";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ function App() {
           </Route>
           <Route exact={true} path="/">
             <AllProducts />
+            <About />
           </Route>
           <Route path="/products/new">
             <CreateProduct />
