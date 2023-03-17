@@ -13,45 +13,45 @@ import './ReviewCss.css'
 const MainReviewBlock = ({ id, product, user }) => {
     let { closeMenu } = useModal()
     let dispatch = useDispatch()
-    let [page,setPage] = useState(1)
-    let [per_page,setPer_Page] = useState(3)
+    let [page, setPage] = useState(1)
+    let [per_page, setPer_Page] = useState(3)
 
     let ProductReviews = useSelector(state => state.reviews.SingleProductsReviews)
     useEffect(() => {
-        dispatch(getReviewsByProduct(id,page,per_page))
+        dispatch(getReviewsByProduct(id, page, per_page))
 
-    }, [id, dispatch, product,page,per_page]
+    }, [id, dispatch, product, page, per_page]
     )
-    function handlePages(e){
+    function handlePages(e) {
         e.preventDefault()
-        let buttonValue=e.target.value
-        if(page<=1&& +buttonValue<0){
+        let buttonValue = e.target.value
+        if (page <= 1 && +buttonValue < 0) {
             return
         }
         setPage(page + +buttonValue)
     }
 
-    console.log(ProductReviews, "---------")
+    console.log("---------", product.avg_rating, product.total_reviews)
     return ProductReviews && (
         <div className="MainBlock">
-            Reviews
-
+            <p>{product.total_reviews}{product.total_reviews == 1 ? ' Review' : ' Reviews'}</p>
+            <p></p>
             <button
-            onClick={handlePages}
-            value={-1}
+                onClick={handlePages}
+                value={-1}
             >prev page</button>{page}<button
-            onClick={handlePages}
-            value={1}
+                onClick={handlePages}
+                value={1}
             >next page</button>
-               <select
-               placeholder="#/Page"
-               value={per_page}
-               onChange={(e)=>setPer_Page(e.target.value)}
-               >
+            <select
+                placeholder="#/Page"
+                value={per_page}
+                onChange={(e) => setPer_Page(e.target.value)}
+            >
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={15}>15</option>
-               </select>
+            </select>
             <div className="MainSubBlock">
                 <OpenModalButton
                     buttonText="New Review"
@@ -61,19 +61,19 @@ const MainReviewBlock = ({ id, product, user }) => {
                 {Object.values(ProductReviews).map((review) => {
                     return (
                         <>
-                        <SingleReviewBlock key={review.id} review={review}/>
+                            <SingleReviewBlock key={review.id} review={review} />
                             {review.author.id === user.id ? (<><OpenModalButton
-                    buttonText="Delete"
-                    onItemClick={closeMenu}
-                    modalComponent={<DeleteReviewModal review={review}page={page} per_page={per_page}/>}
-                />
-                <OpenModalButton
-                    buttonText="Update"
-                    onItemClick={closeMenu}
-                    modalComponent={<UpdateReviewsModal Review={review} />}
-                /></>):""} 
-                </>
-                )
+                                buttonText="Delete"
+                                onItemClick={closeMenu}
+                                modalComponent={<DeleteReviewModal review={review} page={page} per_page={per_page} />}
+                            />
+                                <OpenModalButton
+                                    buttonText="Update"
+                                    onItemClick={closeMenu}
+                                    modalComponent={<UpdateReviewsModal Review={review} />}
+                                /></>) : ""}
+                        </>
+                    )
 
                 })}
 

@@ -25,7 +25,7 @@ def Reviews():
 
 @review_routes.route("/product/<int:id>")
 def ProductReviews(id):
-
+    
     product_reviews = db.paginate(Review.query.filter(id == Review.product_id))
     print("The reviews", product_reviews)
     return [review.to_dict() for review in product_reviews]
