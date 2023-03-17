@@ -81,7 +81,7 @@ export const grabAReviewThunk = (reviewId) => async dispatch => {
     let review = await fetch(`api/reviews/${reviewId}`)
 
     if (review.ok) {
-        let res = await  review.json()
+        let res = await review.json()
         dispatch(SingleReview(res))
         return res
 
@@ -101,7 +101,7 @@ export const getReviewsByUser = (userId) => async dispatch => {
 export const getReviewsByProduct = (productId) => async dispatch => {
     let response = await fetch(`/api/reviews/product/${productId}`)
     if (response.ok) {
-        let data =await response.json()
+        let data = await response.json()
         dispatch(productsReviews(data))
     }
 
@@ -114,12 +114,16 @@ const initialState = { LoggedInUsersReviews: {}, SelectedReview: {}, SingleProdu
 const ReviewsReducer = (state = initialState, action) => {
     switch (action.type) {
         case CREATE_REVIEW:
-            let afterCreate = {...state}
-            afterCreate["LoggedInUsersReviews"] = {...state.LoggedInUsersReviews,[action.payload.id]:action.payload}
+            let afterCreate = { ...state }
+            afterCreate["LoggedInUsersReviews"] = { ...state.LoggedInUsersReviews, [action.payload.id]: action.payload }
+            afterCreate["SingleProductsReviews"] = { ...state.SingleProductsReviews, [action.payload.id]: action.payload }
+
             return afterCreate
         case UPDATE_REVIEW:
-            let afterUpdate = {...state}
-            afterUpdate["LoggedInUsersReviews"] = {...state.LoggedInUsersReviews,[action.payload.id]:action.payload}
+            let afterUpdate = { ...state }
+            afterUpdate["LoggedInUsersReviews"] = { ...state.LoggedInUsersReviews, [action.payload.id]: action.payload }
+            afterUpdate["SingleProductsReviews"] = { ...state.SingleProductsReviews, [action.payload.id]: action.payload }
+
             return afterUpdate
         // case DELETE_REVIEW:
         //     break
@@ -128,12 +132,12 @@ const ReviewsReducer = (state = initialState, action) => {
         // case READ_REVIEW_ONE:
         //     break
         case READ_REVIEW_PRODUCT:
-        let afterProductRead={...state}
-            action.payload.forEach(review=>afterProductRead.SingleProductsReviews[review.id]=review)
+            let afterProductRead = { ...state }
+            action.payload.forEach(review => afterProductRead.SingleProductsReviews[review.id] = review)
             return afterProductRead
         case READ_REVIEW_USERS:
-            let afterRead={...state}
-            action.payload.forEach(review=>afterRead.LoggedInUsersReviews[review.id]=review)
+            let afterRead = { ...state }
+            action.payload.forEach(review => afterRead.LoggedInUsersReviews[review.id] = review)
             return afterRead
         default:
             return state

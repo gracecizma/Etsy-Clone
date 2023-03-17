@@ -14,13 +14,12 @@ class Product(db.Model):
     quantity = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
-    seller_id = db.Column(db.ForeignKey(
-        add_prefix_for_prod('users.id')), nullable=False)
+    seller_id = db.Column(db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
     images = db.relationship('Image', back_populates='product')
     shopping_cart = db.relationship("ShoppingCart", back_populates='products')
     orders = db.relationship("Order", back_populates='products')
-
+    reviews = db.relationship("Review", back_populates="product")
     def to_dict(self):
         return {
             'id': self.id,
