@@ -188,7 +188,7 @@ export default function ShoppingCart() {
 
         <div className="cart-subtotal-container">
           <p>Item(s) Total</p>
-          <p>${parseFloat(totalPrice)}</p>
+          <p>${parseFloat(totalPrice).toFixed(2)}</p>
         </div>
 
         <div className="shipping-container">
