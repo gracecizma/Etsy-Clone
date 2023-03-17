@@ -57,7 +57,7 @@ const SingleProduct = () => {
           (image) =>
             image && (
               <img
-                style={{ width: "200px", height: "150px" }}
+                className="single-product-img"
                 src={image.url}
                 alt={product.name}
               />
@@ -65,15 +65,15 @@ const SingleProduct = () => {
         )
       ) : (
         <img
-          style={{ width: "200px", height: "150px" }}
+          className="single-product-img"
           src="https://i.imgur.com/6XK9X4u.png"
           alt={product.name}
         />
       )}
       <div className="product-info">
-        <h3>{product.name}</h3>
+        <h3 className="single-product-name">{product.name}</h3>
         <p>{product.description}</p>
-        <p>${product.price}</p>
+        <p className="single-product-price">${product.price}</p>
         <Link to={`/user/${product.seller?.id}`}>
           <p>Seller: {product.seller?.username}</p>
         </Link>
