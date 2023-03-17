@@ -10,7 +10,7 @@ import ReviewModal from "./ReviewsModal"
 import './ReviewCss.css'
 
 
-const MainReviewBlock = ({ id, product,user }) => {
+const MainReviewBlock = ({ id, product, user }) => {
     let { closeMenu } = useModal()
     let dispatch = useDispatch()
     let [page, setPage] = useState(1)
@@ -20,7 +20,7 @@ const MainReviewBlock = ({ id, product,user }) => {
     useEffect(() => {
         dispatch(getReviewsByProduct(id, page, per_page))
 
-    }, [id, dispatch, product, page, per_page,product.avg_rating]
+    }, [id, dispatch, product, page, per_page, product.avg_rating]
     )
     function handlePages(e) {
         e.preventDefault()
@@ -61,7 +61,7 @@ const MainReviewBlock = ({ id, product,user }) => {
                     return (
                         <>
                             <SingleReviewBlock key={review.id} review={review} />
-                            {review.author.id === user.id ? (<><OpenModalButton
+                            {review.author.id === user?.id ? (<><OpenModalButton
                                 buttonText="Delete"
                                 onItemClick={closeMenu}
                                 modalComponent={<DeleteReviewModal review={review} page={page} per_page={per_page} />}
