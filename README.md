@@ -53,6 +53,7 @@ npm install
 
 4. Start the Flask server:
 ```bash
+cd app
 pipenv shell
 flask run
 ```
