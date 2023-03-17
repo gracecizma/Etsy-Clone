@@ -98,8 +98,8 @@ export const getReviewsByUser = (userId) => async dispatch => {
 
 }
 
-export const getReviewsByProduct = (productId) => async dispatch => {
-    let response = await fetch(`/api/reviews/product/${productId}`)
+export const getReviewsByProduct = (productId, page, per_page) => async dispatch => {
+    let response = await fetch(`/api/reviews/product/${productId}?page=${page}&per_page=${per_page}`)
     if (response.ok) {
         let data = await response.json()
         dispatch(productsReviews(data))
@@ -133,6 +133,7 @@ const ReviewsReducer = (state = initialState, action) => {
         //     break
         case READ_REVIEW_PRODUCT:
             let afterProductRead = { ...state }
+            afterProductRead.SingleProductsReviews = {}
             action.payload.forEach(review => afterProductRead.SingleProductsReviews[review.id] = review)
             return afterProductRead
         case READ_REVIEW_USERS:
