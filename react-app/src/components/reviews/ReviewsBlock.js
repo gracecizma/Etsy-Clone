@@ -35,13 +35,16 @@ const MainReviewBlock = ({ id, product, user }) => {
         <div className="MainBlock">
             <p>{product?.total_reviews}{product?.total_reviews == 1 ? ' Review' : ' Reviews'}</p>
             <p>Average Star Rating: {product?.avg_rating || 0.0}</p>
+            <div className="pagination">
             <button
+                className="ReviewPageButton"
                 onClick={handlePages}
                 value={-1}
-            >prev page</button>{page}<button
+            >{"<="}</button>{page}<button
+                className="ReviewPageButton"
                 onClick={handlePages}
                 value={1}
-            >next page</button>
+            >{"=>"}</button>
             <select
                 placeholder="#/Page"
                 value={per_page}
@@ -50,7 +53,7 @@ const MainReviewBlock = ({ id, product, user }) => {
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={15}>15</option>
-            </select>
+            </select></div>
             <div className="MainSubBlock">
                 <OpenModalButton
                     buttonText="New Review"

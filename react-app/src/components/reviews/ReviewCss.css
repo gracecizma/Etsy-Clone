@@ -8,4 +8,26 @@
     border:1px solid black;
     flex-direction:column;
 }
+.pagination{
+    display:flex;
+    flex-direction: row;
+}
+.ReviewBlock{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+.ReviewPageButton{
+    display: flex;
+    min-width: 5vw;
+}
+/* .username_on_Review{
 
+} */
+/* .RatingsBlock{
+display:flex;
+flex-direction: column;
+}
+.ReviewContent{
+
+} */
