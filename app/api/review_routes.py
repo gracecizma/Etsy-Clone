@@ -3,7 +3,6 @@ from app.models import Review, db, User
 from flask_login import current_user
 from datetime import datetime
 
-from app.models import Review
 from app.forms.new_review_form import NewReviewForm
 from app.forms.update_review_form import UpdateReviewForm
 
@@ -26,9 +25,9 @@ def Reviews():
 
 @review_routes.route("/product/<int:id>")
 def ProductReviews(id):
-    
-    product_reviews = db.paginate(Review.query.filter(id== Review.product_id))
-    print("The reviews",product_reviews)
+
+    product_reviews = db.paginate(Review.query.filter(id == Review.product_id))
+    print("The reviews", product_reviews)
     return [review.to_dict() for review in product_reviews]
 
 
@@ -60,39 +59,40 @@ def leave_Review():
     return {"errors": "Unauthorized"}, 403
 
 
-@review_routes.route("/<int:id>", methods=["PUT"])
-def Update_Review(id):
+@review_routes.route("/<int:id>", methods=["GET", "PUT", "DELETE"])
+def Route(id):
+    print("HIT ROUTE")
+    if request.method == "PUT":
+        review_to_update = Review.query.get(id)
+        form = UpdateReviewForm()
+        if current_user.is_authenticated:
+            user = current_user.to_dict()
+            form["csrf_token"].data = request.cookies["csrf_token"]
 
-    review_to_update = Review.query.get(id)
-    form = UpdateReviewForm()
-    if current_user.is_authenticated:
-        user = current_user.to_dict()
-        form["csrf_token"].data = request.cookies["csrf_token"]
+            if form.validate_on_submit():
+                review_to_update.comment = form.data["comment"]
+                review_to_update.stars = form.data["stars"]
+                review_to_update.updated_at = datetime.utcnow()
+                db.session.add(review_to_update)
+                db.session.commit()
+                return review_to_update.to_dict()
+            return {"errors": form.errors}, 401
+        return {"errors": "Unauthorized"}, 403
 
-        if form.validate_on_submit():
-            review_to_update.comment = form.data["comment"]
-            review_to_update.stars = form.data["stars"]
-            review_to_update.updated_at = datetime.utcnow()
-            db.session.add(review_to_update)
-            db.session.commit()
-            return review_to_update.to_dict()
-        return {"errors": form.errors}, 401
-    return {"errors": "Unauthorized"}, 403
-
-
-@review_routes.route("/<int:id>", methods=["DELETE"])
-def delete_review(id):
-    if current_user.is_authenticated:
-        user = current_user.to_dict()
-        review_to_delete = Review.query.get(id)
-        if user.id == review_to_delete.user_id:
+    if request.method == "DELETE":
+        print("Method DELETE")
+        if current_user.is_authenticated:
+            user = current_user.to_dict()
+            #  = Review.query.get(id)
+            review_to_delete = Review.query.get(id)
+            review_data = review_to_delete.to_dict()
+            print(review_data)
+            # if user.id == review_data.author.id:
             db.session.delete(review_to_delete)
             db.session.commit()
-        return {"message": "Review deleted"}
-    return {"errors": "Unauthorized"}, 403
+            return {"message": "Review deleted"}
+        return {"errors": "Unauthorized"}, 403
 
-
-@review_routes.route("/<int:id>", methods=["GET"])
-def get_single_review(id):
-    review = Review.query.get(id)
-    return review.to_dict()
+    if request.method == "GET":
+        review = Review.query.get(id)
+        return review.to_dict()

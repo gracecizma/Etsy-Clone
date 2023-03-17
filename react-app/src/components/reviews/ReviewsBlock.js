@@ -5,6 +5,7 @@ import { getReviewsByProduct } from "../../store/reviews"
 import OpenModalButton from '../OpenModalButton/index'
 import { useModal } from "../../context/Modal"
 import UpdateReviewsModal from "./UpdateReviewsModal"
+import DeleteReviewModal from "./DeleteReviewModal"
 import ReviewModal from "./ReviewsModal"
 import './ReviewCss.css'
 
@@ -17,7 +18,7 @@ const MainReviewBlock = ({ id, product, user }) => {
 
     let ProductReviews = useSelector(state => state.reviews.SingleProductsReviews)
     useEffect(() => {
-        return async()=>await dispatch(getReviewsByProduct(id,page,per_page))
+        dispatch(getReviewsByProduct(id,page,per_page))
 
     }, [id, dispatch, product,page,per_page]
     )
@@ -47,9 +48,9 @@ const MainReviewBlock = ({ id, product, user }) => {
                value={per_page}
                onChange={(e)=>setPer_Page(e.target.value)}
                >
-                <option value={1}>1</option>
-                <option value={2}>2</option>
-                <option value={3}>3</option>
+                <option value={5}>5</option>
+                <option value={10}>10</option>
+                <option value={15}>15</option>
                </select>
             <div className="MainSubBlock">
                 <OpenModalButton
@@ -58,7 +59,22 @@ const MainReviewBlock = ({ id, product, user }) => {
                     modalComponent={<ReviewModal product_id={product.id} />}
                 />
                 {Object.values(ProductReviews).map((review) => {
-                    return (<SingleReviewBlock key={review.id} review={review}/>)
+                    return (
+                        <>
+                        <SingleReviewBlock key={review.id} review={review}/>
+                            {review.author.id === user.id ? (<><OpenModalButton
+                    buttonText="Delete"
+                    onItemClick={closeMenu}
+                    modalComponent={<DeleteReviewModal review={review}page={page} per_page={per_page}/>}
+                />
+                <OpenModalButton
+                    buttonText="Update"
+                    onItemClick={closeMenu}
+                    modalComponent={<UpdateReviewsModal Review={review} />}
+                /></>):""} 
+                </>
+                )
+
                 })}
 
             </div>

@@ -106,11 +106,21 @@ export const getReviewsByProduct = (productId, page, per_page) => async dispatch
     }
 
 }
-export const deleteReviewThunk= (reviewId) =>async dispatch=>{
-    
+export const deleteReviewThunk = (reviewId) => async dispatch => {
+    console.log("INSIDE DELETE THUNK")
+    let response = await fetch(`/api/reviews/${reviewId}`, {
+        method: "DELETE"
+    })
+    console.log(response.url)
+    console.log(response)
+    if (response.ok) {
+        console.log("RESPONSE WAS OK")
+        dispatch(deleteReview(reviewId))
+        return response
+    }
 }
 
-const initialState = { LoggedInUsersReviews: {}, SelectedReview: {}, SingleProductsReviews: {} }
+const initialState = { LoggedInUsersReviews: {}, SingleProductsReviews: {} }
 
 
 const ReviewsReducer = (state = initialState, action) => {
@@ -127,8 +137,11 @@ const ReviewsReducer = (state = initialState, action) => {
             afterUpdate["SingleProductsReviews"] = { ...state.SingleProductsReviews, [action.payload.id]: action.payload }
 
             return afterUpdate
-        // case DELETE_REVIEW:
-        //     break
+        case DELETE_REVIEW:
+            let afterDelete = {...state,...state.LoggedInUsersReviews,...state.SingleProductsReviews }
+            delete afterDelete["LoggedInUsersReviews"][action.payload]
+            delete afterDelete["SingleProductsReviews"][action.payload]
+            return afterDelete
         // case READ_REVIEW_ALL:
         //     return {...state,LoggedInUsersReviews:action.payload}
         // case READ_REVIEW_ONE:
