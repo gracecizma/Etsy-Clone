@@ -4,6 +4,7 @@ from .products import seed_products, undo_products
 from .images import seed_images, undo_images
 from .reviews import seed_reviews,undo_reviews
 from app.models.db import db, environment, SCHEMA
+from .additional_users import moreUsers
 
 # Creates a seed group to hold our commands
 # So we can type `flask seed --help`
@@ -23,7 +24,8 @@ def seed():
     seed_users()
     seed_products()
     seed_images()
-    # seed_reviews()
+    moreUsers()
+    seed_reviews()
     
     # Add other seed functions here
 
@@ -34,6 +36,6 @@ def undo():
     undo_users()
     undo_products()
     undo_images()
-    # undo_reviews()
+    undo_reviews()
     
     # Add other undo functions here

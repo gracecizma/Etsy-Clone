@@ -5,10 +5,10 @@ from random import randint
 
 
 def seed_reviews():
-    for i in range(10):
+    for i in range(34):
         review = Review(
-            user_id=randint(2, 3),
-            product_id=randint(1,20),
+            user_id=randint(4, 32),
+            product_id=randint(1, 20),
             comment=f"this is review # {i}",
             stars=randint(1, 6),
             created_at=datetime.utcnow(),
@@ -20,7 +20,7 @@ def seed_reviews():
 
 def undo_reviews():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.reveiws RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.reviews RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM reviews"))
 

@@ -8,7 +8,7 @@ import "./CreateProduct.css";
 const CreateProduct = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const user = useSelector(state => state.session.user)
+  const user = useSelector((state) => state.session.user);
   const userId = user.id;
 
   const [title, setTitle] = useState("");
@@ -19,7 +19,7 @@ const CreateProduct = () => {
   const [quantity, setQuantity] = useState("");
 
   if (!user) {
-    history.push("/login")
+    history.push("/login");
   }
 
   let product = {
@@ -27,14 +27,16 @@ const CreateProduct = () => {
     description,
     price,
     quantity,
-    userId
+    userId,
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     let newErrors = {};
-    if (!images) {
-      newErrors["images"] = "Please add at least one image";
+    const imgPattern = /\.(jpg|jpeg|png|gif)$/i;
+    if (!images || !imgPattern.test(images)) {
+      newErrors["images"] =
+        "Please add at least one image and make sure its a valid image link 'example: ends with jpg, jpeg, png, gif' ";
     }
     if (!title) {
       newErrors["title"] = "Please add a title";
@@ -80,7 +82,7 @@ const CreateProduct = () => {
             </div>
           )}
         </div>
-        <div>
+        <div className="form-item">
           {errors["title"] && <div className="error">{errors["title"]}</div>}
           <label>Title</label>
           <input
@@ -90,7 +92,7 @@ const CreateProduct = () => {
             value={title}
           ></input>
         </div>
-        <div>
+        <div className="form-item">
           {errors["description"] && (
             <div className="error">{errors["description"]}</div>
           )}
@@ -101,7 +103,7 @@ const CreateProduct = () => {
             value={description}
           ></textarea>
         </div>
-        <div>
+        <div className="form-item">
           {errors["price"] && <div className="error">{errors["price"]}</div>}
           <label>Price</label>
           <input
@@ -111,7 +113,7 @@ const CreateProduct = () => {
             value={price}
           ></input>
         </div>
-        <div>
+        <div className="form-item">
           {errors["quantity"] && (
             <div className="error">{errors["quantity"]}</div>
           )}
@@ -123,7 +125,7 @@ const CreateProduct = () => {
             value={quantity}
           ></input>
         </div>
-        <div>
+        <div className="form-item">
           {errors["images"] && <div className="error">{errors["images"]}</div>}
           <label>Images</label>
           {images.map((image, idx) => (
@@ -135,11 +137,13 @@ const CreateProduct = () => {
               value={image}
             ></input>
           ))}
-          <button type="button" onClick={addImage}>
+          <button className="form-button" type="button" onClick={addImage}>
             Add Image
           </button>
         </div>
-        <button type="submit">Create Product</button>
+        <button className="form-button" type="submit">
+          Create Product
+        </button>
       </form>
     </div>
   );

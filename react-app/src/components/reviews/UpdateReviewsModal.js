@@ -7,23 +7,16 @@ import { UpdateReviewThunk, getReviewsByUser } from "../../store/reviews";
 
 
 
-function UpdateReviewsModal({ reviewId }) {
+function UpdateReviewsModal({ Review }) {
 
     const dispatch = useDispatch();
-    let origReview = useSelector(state => state.reviews.LoggedInUsersReviews[reviewId])
+    // let origReview = useSelector(state => state.reviews.LoggedInUsersReviews[reviewId])
     let [review, setReview] = useState("")
     let [rating, setRating] = useState(3)
     let user_id = useSelector(state => state.session.user.id)
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
-    useEffect(() => {
-      return () => {
-        if(origReview===undefined){
-             dispatch(getReviewsByUser(user_id))
-
-        }
-      };
-    }, [])
+   
 
     // Catch Rating value
     const handleRating = (rate) => {
@@ -34,6 +27,9 @@ function UpdateReviewsModal({ reviewId }) {
         e.preventDefault();
         setErrors([])
         let Errors = []
+        if (review.length<30){
+
+        }
         if (review.length > 500) {
             Errors.push("Reviews must be 500 Characters or less!!")
         }
@@ -41,7 +37,7 @@ function UpdateReviewsModal({ reviewId }) {
             Errors.push("Ratings Are Positive Numbers Under 5!!")
         }
         if (!Errors.length) {
-            dispatch(UpdateReviewThunk({ "id": reviewId, "comment": review, "stars": rating }))
+            dispatch(UpdateReviewThunk({ "id": Review.id, "comment": review, "stars": rating }))
             closeModal()
 
         }

@@ -39,6 +39,13 @@ function ProfileButton({ user }) {
   const profileHandler = (e) => {
     e.preventDefault();
     history.push(`/user/${user.id}`);
+    closeMenu();
+  };
+
+  const addNewHandler = (e) => {
+    e.preventDefault();
+    history.push(`/products/new`);
+    closeMenu();
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
@@ -57,6 +64,11 @@ function ProfileButton({ user }) {
             <li>
               <button className="profile-button" onClick={profileHandler}>
                 Profile
+              </button>
+            </li>
+            <li>
+              <button className="profile-button" onClick={addNewHandler}>
+                Create Product
               </button>
             </li>
             <li>

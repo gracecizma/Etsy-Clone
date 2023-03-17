@@ -98,17 +98,29 @@ export const getReviewsByUser = (userId) => async dispatch => {
 
 }
 
-export const getReviewsByProduct = (productId) => async dispatch => {
-    let response = await fetch(`/api/reviews/product/${productId}`)
+export const getReviewsByProduct = (productId, page, per_page) => async dispatch => {
+    let response = await fetch(`/api/reviews/product/${productId}?page=${page}&per_page=${per_page}`)
     if (response.ok) {
         let data = await response.json()
         dispatch(productsReviews(data))
     }
 
 }
+export const deleteReviewThunk = (reviewId) => async dispatch => {
+    console.log("INSIDE DELETE THUNK")
+    let response = await fetch(`/api/reviews/${reviewId}`, {
+        method: "DELETE"
+    })
+    console.log(response.url)
+    console.log(response)
+    if (response.ok) {
+        console.log("RESPONSE WAS OK")
+        dispatch(deleteReview(reviewId))
+        return response
+    }
+}
 
-
-const initialState = { LoggedInUsersReviews: {}, SelectedReview: {}, SingleProductsReviews: {} }
+const initialState = { LoggedInUsersReviews: {}, SingleProductsReviews: {} }
 
 
 const ReviewsReducer = (state = initialState, action) => {
@@ -125,14 +137,18 @@ const ReviewsReducer = (state = initialState, action) => {
             afterUpdate["SingleProductsReviews"] = { ...state.SingleProductsReviews, [action.payload.id]: action.payload }
 
             return afterUpdate
-        // case DELETE_REVIEW:
-        //     break
+        case DELETE_REVIEW:
+            let afterDelete = {...state,...state.LoggedInUsersReviews,...state.SingleProductsReviews }
+            delete afterDelete["LoggedInUsersReviews"][action.payload]
+            delete afterDelete["SingleProductsReviews"][action.payload]
+            return afterDelete
         // case READ_REVIEW_ALL:
         //     return {...state,LoggedInUsersReviews:action.payload}
         // case READ_REVIEW_ONE:
         //     break
         case READ_REVIEW_PRODUCT:
             let afterProductRead = { ...state }
+            afterProductRead.SingleProductsReviews = {}
             action.payload.forEach(review => afterProductRead.SingleProductsReviews[review.id] = review)
             return afterProductRead
         case READ_REVIEW_USERS:
