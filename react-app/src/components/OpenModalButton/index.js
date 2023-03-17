@@ -16,7 +16,19 @@ function OpenModalButton({
   };
 
   return (
-    <button className="add-cart-button" onClick={onClick}>
+    <button
+      style={{
+        height: "40px",
+        width: "200px",
+        borderRadius: "20px",
+        textAlign: "center",
+        fontWeight: "bold",
+        border: "2px solid black",
+        backgroundColor: "white",
+        margin: "10px",
+      }}
+      onClick={onClick}
+    >
       {buttonText}
     </button>
   );
