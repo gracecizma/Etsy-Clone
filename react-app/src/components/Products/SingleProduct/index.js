@@ -52,24 +52,26 @@ const SingleProduct = () => {
 
   return (
     <div className="single-product-container">
-      {product.images?.length > 0 ? (
-        product.images.map(
-          (image) =>
-            image && (
-              <img
-                className="single-product-img"
-                src={image.url}
-                alt={product.name}
-              />
-            )
-        )
-      ) : (
-        <img
-          className="single-product-img"
-          src="https://i.imgur.com/6XK9X4u.png"
-          alt={product.name}
-        />
-      )}
+      <div className="images-row">
+        {product.images?.length > 0 ? (
+          product.images.map(
+            (image) =>
+              image && (
+                <img
+                  className="single-product-img"
+                  src={image.url}
+                  alt={product.name}
+                />
+              )
+          )
+        ) : (
+          <img
+            className="single-product-img"
+            src="https://i.imgur.com/6XK9X4u.png"
+            alt={product.name}
+          />
+        )}
+      </div>
       <div className="product-info">
         <h3 className="single-product-name">{product.name}</h3>
         <p>{product.description}</p>
