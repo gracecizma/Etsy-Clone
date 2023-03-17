@@ -70,6 +70,7 @@ export const updateItemInCart = (item) => async (dispatch) => {
     const data = await res.json()
     console.log("update dart item data", data)
     dispatch(updateCartItem(data))
+    dispatch(getUserCart())
   }
 }
 

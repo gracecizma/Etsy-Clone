@@ -1,0 +1,38 @@
+.cart-modal-container {
+  display: flex;
+  height: 300px;
+  width: 350px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+
+.cart-content-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  height: 250px;
+  width: 300px;
+}
+
+.cart-img-text-container {
+  display: flex;
+  height: 200px;
+  width: 300px;
+  flex-direction: column;
+}
+
+.cart-buttons-container {
+  display: flex;
+  width: 300px;
+  justify-content: space-around;
+}
+
+.cart-image {
+  display: flex;
+  object-fit: fill;
+  width: 80%;
+  height: 80%;
+}

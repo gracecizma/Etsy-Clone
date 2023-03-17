@@ -1,6 +1,7 @@
 import React from "react";
 import { useModal } from "../../context/Modal";
 import { NavLink } from 'react-router-dom';
+import './addcart.css'
 
 
 export default function AddToCart({ product, quantity }) {
@@ -12,28 +13,32 @@ export default function AddToCart({ product, quantity }) {
 
   return (
     <div className="cart-modal-container">
-      <div className="cart-img-text-container">
-        <div>
-          <img className="cart-image" src={product.preview_img} />
+      <div className="cart-content-container">
+        <div className="cart-img-text-container">
+          <div className="cart-text-container">
+            {quantity} {quantity > 1 ? "items added to cart" : "item added to cart"}
+          </div>
+          <div>
+            <img className="cart-image" src={product.images[0]?.url} />
+          </div>
         </div>
-        <div className="cart-text-container">
-          {quantity} {quantity > 1 ? "items added to cart" : "item added to cart"}
+        <div className="cart-buttons-container">
+          <NavLink to="/shopping-cart">
+            <button
+              className="view-cart-btn"
+              onClick={handleClick}
+            >
+              View Cart & Checkout
+            </button>
+          </NavLink>
+          <button
+            className="keep-shopping-btn"
+            onClick={handleClick}
+          >
+            Keep Shopping
+          </button>
         </div>
       </div>
-      <NavLink to="/shopping-cart">
-        <button
-          className="view-cart-btn"
-          onClick={handleClick}
-        >
-          View cart & Checkout
-        </button>
-      </NavLink>
-      <button
-        className="keep-shopping-btn"
-        onClick={handleClick}
-      >
-        Keep shopping
-      </button>
     </div>
   )
 }
