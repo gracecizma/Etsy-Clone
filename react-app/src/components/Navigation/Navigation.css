@@ -30,9 +30,6 @@
   cursor: pointer;
   background-color: rgb(184, 225, 245);
 }
-.profile-dropdown > li {
-  overflow: scroll;
-}
 
 .profile-pic:hover {
   cursor: pointer;
