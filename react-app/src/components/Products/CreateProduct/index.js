@@ -58,6 +58,8 @@ const CreateProduct = () => {
     }
   };
 
+  
+
   const updateImage = (e, idx) => {
     const newImages = [...images];
     newImages[idx] = e.target.value;
