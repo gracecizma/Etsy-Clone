@@ -47,7 +47,7 @@ pipenv install -r requirements.txt
 
 3. Install the required JavaScript packages:
 ```bash
-cd client
+cd react-app
 npm install
 ```
 
