@@ -25,8 +25,10 @@ def Reviews():
 
 
 @review_routes.route("/product/<int:id>")
-def ProductReviews():
-    product_reviews = Review.query.filter(Review.product_id == id).all()
+def ProductReviews(id):
+    
+    product_reviews = db.paginate(Review.query.filter(id== Review.product_id))
+    print("The reviews",product_reviews)
     return [review.to_dict() for review in product_reviews]
 
 
@@ -66,11 +68,11 @@ def Update_Review(id):
     if current_user.is_authenticated:
         user = current_user.to_dict()
         form["csrf_token"].data = request.cookies["csrf_token"]
-        
+
         if form.validate_on_submit():
             review_to_update.comment = form.data["comment"]
             review_to_update.stars = form.data["stars"]
-            review_to_update.updated_at =datetime.utcnow()
+            review_to_update.updated_at = datetime.utcnow()
             db.session.add(review_to_update)
             db.session.commit()
             return review_to_update.to_dict()
