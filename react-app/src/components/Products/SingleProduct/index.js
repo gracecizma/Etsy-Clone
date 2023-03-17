@@ -79,7 +79,7 @@ const SingleProduct = () => {
           <p>Seller: {product.seller?.username}</p>
         </Link>
       </div>
-      <MainReviewBlock/>
+      <MainReviewBlock id={id} product={product} user={currUser}/>
       <select className="select-quantity" onChange={quantityUpdate}>
         <option>Select Quantity</option>
         {maxAvailable.map((number) => (

@@ -6,20 +6,18 @@ import OpenModalButton from '../OpenModalButton/index'
 import { useModal } from "../../context/Modal"
 import UpdateReviewsModal from "./UpdateReviewsModal"
 import ReviewModal from "./ReviewsModal"
+import './ReviewCss.css'
 
 
-const MainReviewBlock = () => {
-    let { closeMenu } = useModal
+const MainReviewBlock = ({ id, product, user }) => {
+    let { closeMenu } = useModal()
     let dispatch = useDispatch()
-    let user = useSelector(state => state.session.user)
-    let Product = useSelector(state => state.products.singleProduct)
+
     let ProductReviews = useSelector(state => state.reviews.SingleProductsReviews)
     useEffect(() => {
+        dispatch(getReviewsByProduct(id))
 
-        return () => {
-            dispatch(getReviewsByProduct(Product.id))
-        }
-    },
+    }, [id, dispatch, product]
     )
 
 
@@ -31,11 +29,10 @@ const MainReviewBlock = () => {
                 <OpenModalButton
                     buttonText="New Review"
                     onItemClick={closeMenu}
-                    modalComponent={<ReviewModal product_id={Product.id} />}
+                    modalComponent={<ReviewModal product_id={product.id} />}
                 />
-                {Object.values(ProductReviews).forEach((review) => {
-                   
-                     <SingleReviewBlock key={review.id} review={review} ></SingleReviewBlock>
+                {Object.values(ProductReviews).map((review) => {
+                    return (<SingleReviewBlock key={review.id} review={review}/>)
                 })}
 
             </div>

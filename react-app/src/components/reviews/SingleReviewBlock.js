@@ -1,17 +1,16 @@
 import { useSelector, useDispatch } from "react-redux"
 // import { getSingleProduct } from "../../store/products"
+import "./ReviewCss.css"
 
-// let review = { id: 1, user_id: 2, product_id: 3, comment: "this is the comment", stars: 5 }
-function SingleReviewBlock({ review }) {
-    const user = useSelector((state) => state.session.user)
-    const product = useSelector((state) => state.product.SingleProduct)
-
+function SingleReviewBlock({ review ,user,product}) {
+    
+    
 
 
     return (
-        <div className="SingleReviewBlock">
+        <div className="SingleReview">
             <div className="ReviewBlock">
-                <p className="username_on_Review">{user?.username}'s review for {product.name}</p>
+                <p className="username_on_Review">{review["author"].username}'s review for {review["product"].name}</p>
                 <div className="RatingsBlock">
                     <p>*StarsIcon*:{review.stars}</p>
                     <p className="ReviewContent"> {review.comment}</p>

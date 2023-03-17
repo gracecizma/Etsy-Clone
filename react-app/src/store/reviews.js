@@ -122,6 +122,8 @@ const ReviewsReducer = (state = initialState, action) => {
         case UPDATE_REVIEW:
             let afterUpdate = { ...state }
             afterUpdate["LoggedInUsersReviews"] = { ...state.LoggedInUsersReviews, [action.payload.id]: action.payload }
+            afterUpdate["SingleProductsReviews"] = { ...state.SingleProductsReviews, [action.payload.id]: action.payload }
+
             return afterUpdate
         // case DELETE_REVIEW:
         //     break
