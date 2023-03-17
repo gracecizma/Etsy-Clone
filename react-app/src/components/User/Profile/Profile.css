@@ -1,0 +1,29 @@
+.add-product-button {
+  height: 40px;
+  width: 200px;
+  border-radius: 20px;
+  text-align: center;
+  font-weight: bold;
+  border: 2px solid black;
+  background-color: white;
+}
+
+.add-product-button:hover {
+  cursor: pointer;
+  background-color: rgb(224, 224, 224);
+}
+
+.user-product-card-button {
+  height: 40px;
+  width: 200px;
+  border-radius: 20px;
+  text-align: center;
+  font-weight: bold;
+  border: 2px solid black;
+  background-color: white;
+}
+
+.user-product-card-button:hover {
+  cursor: pointer;
+  background-color: rgb(224, 224, 224);
+}

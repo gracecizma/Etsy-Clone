@@ -47,4 +47,5 @@
 .add-cart-button:hover,
 .select-quantity:hover {
   cursor: pointer;
+  background-color: rgb(224, 224, 224);
 }
