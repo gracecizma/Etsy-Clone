@@ -30,12 +30,11 @@ const MainReviewBlock = ({ id, product, user }) => {
         }
         setPage(page + +buttonValue)
     }
-
-    console.log("---------", product.avg_rating, product.total_reviews)
+   
     return ProductReviews && (
         <div className="MainBlock">
             <p>{product.total_reviews}{product.total_reviews == 1 ? ' Review' : ' Reviews'}</p>
-            <p></p>
+            <p>Average Star Rating: {Math.floor(product.avg_rating*100)/100}</p>
             <button
                 onClick={handlePages}
                 value={-1}
