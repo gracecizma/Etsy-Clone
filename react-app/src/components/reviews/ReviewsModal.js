@@ -26,6 +26,10 @@ function ReviewModal({ product_id }) {
         e.preventDefault();
         setErrors([])
         let Errors = []
+        if(review.length<30){
+            Errors.push("Reviews must be 30 Characters or more!!")
+
+        }
         if (review.length > 500) {
             Errors.push("Reviews must be 500 Characters or less!!")
         }
