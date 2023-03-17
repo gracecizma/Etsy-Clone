@@ -7,7 +7,6 @@
   flex-direction: column;
 }
 
-
 .cart-content-container {
   display: flex;
   justify-content: space-around;
@@ -35,4 +34,29 @@
   object-fit: fill;
   width: 80%;
   height: 80%;
+}
+
+.cart-preview-img {
+  height: 200px;
+}
+
+.single-cart-item-container {
+  border-bottom: 2px solid gainsboro;
+}
+
+.total-box {
+  border: 2px solid black;
+  width: fit-content;
+  padding: 6px;
+  border-radius: 4px;
+}
+
+.total-text {
+  font-size: 25px;
+  border-bottom: 2px solid black;
+  width: fit-content;
+}
+
+.cart-summary-container {
+  background-color: antiquewhite;
 }
