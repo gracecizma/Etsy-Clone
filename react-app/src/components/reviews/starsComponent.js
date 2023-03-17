@@ -22,7 +22,7 @@
 
 // 2. RatingView Component Example
 // import React, { useState } from 'react'
-// import { RatingView } from 'react-simple-star-rating'
+import { RatingView } from 'react-simple-star-rating'
 
 // export default function MyComponent() {
 //   return (
