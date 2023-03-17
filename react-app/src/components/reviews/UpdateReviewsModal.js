@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { Rating } from 'react-simple-star-rating'
@@ -16,7 +16,7 @@ function UpdateReviewsModal({ Review }) {
     let user_id = useSelector(state => state.session.user.id)
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
-   
+
 
     // Catch Rating value
     const handleRating = (rate) => {
@@ -27,8 +27,8 @@ function UpdateReviewsModal({ Review }) {
         e.preventDefault();
         setErrors([])
         let Errors = []
-        if (review.length<30){
-
+        if (review.length < 30) {
+            Errors.push("Reviews must be 30 Characters or more!!")
         }
         if (review.length > 500) {
             Errors.push("Reviews must be 500 Characters or less!!")
