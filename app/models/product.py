@@ -20,6 +20,12 @@ class Product(db.Model):
     shopping_cart = db.relationship("ShoppingCart", back_populates='products')
     orders = db.relationship("Order", back_populates='products')
     reviews = db.relationship("Review", back_populates="product")
+
+    def avg_rating(self):
+        if len(self.reviews) == 0:
+            return 0
+        return sum(review.stars for review in self.reviews) / len(self.reviews)
+        
     def to_dict(self):
         return {
             'id': self.id,
@@ -30,5 +36,7 @@ class Product(db.Model):
             'created_at': self.created_at,
             'updated_at': self.updated_at,
             'images': [image.to_dict() for image in self.images],
-            'seller_id': self.seller_id
+            'seller_id': self.seller_id,
+            'avg_rating':self.avg_rating(),
+            'total_reviews':len(self.reviews)
         }

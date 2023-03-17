@@ -22,7 +22,6 @@ function SignupFormPage() {
     e.preventDefault();
     
     if (emailPattern.test(email) === false) {
-      console.log("emailPattern.test(email)", emailPattern.test(email))
       setErrors(["Please enter a valid email address"]);
     }
     else if (password === confirmPassword) {
