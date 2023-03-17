@@ -47,7 +47,7 @@ function Navigation({ isLoaded }) {
                     <ProfileButton user={sessionUser} />
                   </div>
                   <div className="cart-box">
-                    <NavLink exact to="/shopping-cart">
+                    <NavLink exact to={`/shopping-cart/${sessionUser.id}`}>
                       <i className="fas fa-shopping-cart fa-lg"></i>
                     </NavLink>
                   </div>
