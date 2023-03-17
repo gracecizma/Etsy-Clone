@@ -33,8 +33,9 @@ const CreateProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let newErrors = {};
-    if (!images) {
-      newErrors["images"] = "Please add at least one image";
+    const imgPattern = /\.(jpg|jpeg|png|gif)$/i;
+    if (!images || !imgPattern.test(images) ) {
+      newErrors["images"] = "Please add at least one image and make sure its a valid image link 'example: ends with jpg, jpeg, png, gif' ";
     }
     if (!title) {
       newErrors["title"] = "Please add a title";
