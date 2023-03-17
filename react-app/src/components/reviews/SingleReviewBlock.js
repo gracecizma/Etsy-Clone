@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux"
 
 // let review = { id: 1, user_id: 2, product_id: 3, comment: "this is the comment", stars: 5 }
 function SingleReviewBlock({ review }) {
-    const user = useSelector((state) => state.session.User)
-    const product = useSelector(state => state.product.SingleProduct)
+    const user = useSelector((state) => state.session.user)
+    const product = useSelector((state) => state.product.SingleProduct)
 
 
 

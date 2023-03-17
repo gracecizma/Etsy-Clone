@@ -5,6 +5,7 @@ import { addItemToCart, getUserCart } from "../../../store/shoppingcart";
 import AddToCart from "../../ShoppingCart/AddToCart";
 import OpenModalButton from "../../OpenModalButton";
 import { useParams, Link } from "react-router-dom";
+import MainReviewBlock from "../../reviews/ReviewsBlock";
 import "./SingleProduct.css";
 
 const SingleProduct = () => {
@@ -78,6 +79,7 @@ const SingleProduct = () => {
           <p>Seller: {product.seller?.username}</p>
         </Link>
       </div>
+      <MainReviewBlock/>
       <select className="select-quantity" onChange={quantityUpdate}>
         <option>Select Quantity</option>
         {maxAvailable.map((number) => (
