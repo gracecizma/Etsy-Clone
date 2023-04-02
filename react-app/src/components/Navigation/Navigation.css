@@ -1,0 +1,197 @@
+.profile-dropdown {
+  display: flex;
+  flex-direction: column;
+  border: solid grey 2px;
+  position: relative;
+  right: 70px;
+  top: 40px;
+  padding-right: 10px;
+  padding-left: 10px;
+  width: 200px;
+  height: 200px;
+  list-style: none;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: rgb(211, 240, 255);
+  color: rgb(0, 0, 0);
+  border-radius: 10px;
+}
+
+.profile-dropdown > button {
+  color: rgb(0, 0, 0);
+  background: none;
+  margin: 5px 5px;
+  width: 80px;
+  border-radius: 10px;
+}
+
+.profile-dropdown > button:hover {
+  cursor: pointer;
+  background-color: rgb(184, 225, 245);
+}
+
+.profile-pic:hover {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.navbar {
+  position: relative;
+  height: 100px;
+  width: 100%;
+  border-bottom: solid rgb(220, 220, 220) 3px;
+  display: inline-block;
+}
+
+.nav-items {
+  /* border: solid red 2px; */
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0%;
+}
+
+.nav-right {
+  /* border: solid #0004ff 2px; */
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  width: 80px;
+  list-style: none;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 40px;
+}
+
+.nav-left {
+  /* border: solid rgb(13, 0, 255) 2px; */
+  list-style: none;
+  font-size: 30px;
+  text-decoration: none;
+  color: orange;
+}
+
+.profile-box {
+  height: 50px;
+  width: 40px;
+  display: flex;
+}
+
+.profile-box > button {
+  background-color: white;
+  border: none;
+  border-radius: 40px;
+}
+
+.profile-box > button:hover {
+  background-color: rgb(215, 215, 215);
+}
+
+.cart-box {
+  position: relative;
+  display: flex;
+}
+
+.nav-left:visited {
+  text-decoration: dotted;
+  color: orange;
+}
+
+.nav-home {
+  text-decoration: none;
+  color: orange;
+}
+
+.nav-home:visited {
+  color: orange;
+  text-decoration: none;
+}
+
+.search-container {
+  display: flex;
+  /* border: solid red 2px; */
+  height: 40px;
+  width: 60%;
+  border-radius: 20px;
+  text-align: center;
+  align-items: flex-start;
+}
+
+.search-form-input {
+  border: solid rgb(0, 0, 0) 2px;
+  height: 45px;
+  width: 100%;
+  border-radius: 25px;
+  text-align: start;
+  font-size: 18px;
+  font-weight: 100;
+  padding-left: 15px;
+  background-color: rgb(237, 237, 237);
+}
+
+.search-form {
+  display: flex;
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(255, 119, 0);
+}
+
+a:visited {
+  color: rgb(255, 119, 0);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  color: rgb(192, 87, 0);
+}
+
+.logout-button {
+  color: rgb(0, 0, 0);
+  background: none;
+  margin: 5px 5px;
+  width: 80px;
+  border-radius: 10px;
+}
+
+.profile-button {
+  color: rgb(0, 0, 0);
+  background: none;
+  margin: 5px 5px;
+  width: 80px;
+  border-radius: 10px;
+}
+
+.profile-button:hover {
+  cursor: pointer;
+  background-color: rgb(184, 225, 245);
+}
+
+.logout-button:hover {
+  cursor: pointer;
+  background-color: rgb(184, 225, 245);
+}
+
+.surch {
+  display: flex;
+  position: relative;
+  right: 44px;
+  top: 3px;
+  height: 45px;
+  width: 45px;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.surch:hover {
+  background-color: rgb(215, 215, 215);
+}
